@@ -10,7 +10,7 @@ Rating::Rating(){
 Rating::Rating(int uId, int mId, double s){
     userId = uId; 
     movieId = mId;
-    if(s < 0.0 || s > 5.0){
+    if(s < 0.0 || s > 5.0){         //유효성 검사
         std::cout << "0과 5사이의 평점을 입력하세요." << std::endl;
         score = 0;
     }
