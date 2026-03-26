@@ -1,0 +1,24 @@
+#include "User.h"
+#include <iostream>
+
+User::User(int i, std::string n, std::string e){
+    id = i;
+    if(!n.empty()) name = n;
+    if(!e.empty()) email = e;
+}
+
+
+int User::getId() const{
+    return id;
+}
+std::string User::getName() const{
+    return name;
+}
+std::string User::getEmail() const{
+    return email;
+}
+void User::display() const{
+    std::cout << "ID: " << id;
+    std::cout << " Name: " << name;
+    std::cout << " Email: " << email << std::endl;;
+}
