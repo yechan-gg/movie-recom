@@ -7,7 +7,7 @@ private:
     double score;
 public:
     Rating();
-    Rating(int uId, int mId, double s);
+    Rating(int userId, int movieId, double score);
     int getUserId() const;
     int getMovieId() const;
     int getScore() const;

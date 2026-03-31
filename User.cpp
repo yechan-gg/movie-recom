@@ -1,12 +1,9 @@
 #include "User.h"
 #include <iostream>
 
-User::User(int i, std::string n, std::string e){
-    id = i;
-    if(!n.empty()) name = n;
-    if(!e.empty()) email = e;
-}
 
+User::User(int id, const std::string& name, const std::string& email)
+    :id(id), name(name), email(email) {}
 
 int User::getId() const{
     return id;

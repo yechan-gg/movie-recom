@@ -8,7 +8,7 @@ private:
     std::string email;
 public:
     User();
-    User(int i, std::string n, std::string e);
+    User(int id, const std::string& name, const std::string& email);
     int getId() const;
     std::string getName() const;
     std::string getEmail() const;

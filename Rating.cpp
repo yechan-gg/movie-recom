@@ -2,20 +2,16 @@
 #include <iostream>
 #include <string>
 
-Rating::Rating(){
-    userId = 0; 
-    movieId = 0;
-    score = 0;
-}
-Rating::Rating(int uId, int mId, double s){
-    userId = uId; 
-    movieId = mId;
-    if(s < 0.0 || s > 5.0){         //유효성 검사
-        std::cout << "0과 5사이의 평점을 입력하세요." << std::endl;
-        score = 0;
+Rating::Rating()
+    :userId(0), movieId(0), score(0)
+    {}
+Rating::Rating(int userId, int movieId, double score)
+    :userId(userId), movieId(movieId), score(score)
+    {   
+        if(this->score < 0.0 || this->score > 5.0)         //유효성 검사
+            this->score = 0;
     }
-    else score = s;  
-}
+
 int Rating::getUserId() const{
     return userId;
 }
