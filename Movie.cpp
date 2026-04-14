@@ -39,3 +39,28 @@ void Movie::display() const {           // 중복 제거 — 하나만 유지
               << " (" << ratingCount << "건)"
               << std::endl;
 }
+
+bool Movie::operator==(const Movie& other) const{
+    return title == other.title && releaseYear == other.releaseYear;
+}
+bool Movie::operator!=(const Movie& other) const{
+    return !(*this == other);
+}
+bool Movie::operator<(const Movie& other) const{
+    if(getAverageRating() != other.getAverageRating()) return getAverageRating() < other.getAverageRating();
+    return title < other.title;
+}
+bool Movie::operator>(const Movie& other) const{
+    return other < *this;
+}
+bool Movie::operator<=(const Movie& other) const{
+    return !(other < *this);
+}
+bool Movie::operator>=(const Movie& other) const{
+    return  !(*this < other);
+}
+
+std::ostream& operator<<(std::ostream& os, const Movie& m) {
+    os << "[" << m.title << "] " << m.releaseYear << "년, ★" << m.getAverageRating();
+    return os;
+}
