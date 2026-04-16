@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 
 class Movie {
@@ -26,13 +25,13 @@ public:
     void addRating(double r);               // 추가
     void display()               const;
 
-
     bool operator==(const Movie& other) const;  //연산자 오버로딩
     bool operator!=(const Movie& other) const;
     bool operator<(const Movie& other) const;   
     bool operator>(const Movie& other) const;
     bool operator<=(const Movie& other) const;
     bool operator>=(const Movie& other) const;
+
     
     friend std::ostream& operator<<(std::ostream& os, const Movie& m);
 };
