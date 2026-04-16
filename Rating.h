@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class Rating{
 private:
@@ -12,4 +13,5 @@ public:
     int getMovieId() const;
     int getScore() const;
     void display() const;
+    friend std::ostream& operator<<(std::ostream& os, const Rating& r);
 };

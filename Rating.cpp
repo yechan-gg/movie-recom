@@ -1,5 +1,4 @@
 #include "Rating.h"
-#include <iostream>
 #include <string>
 
 Rating::Rating()
@@ -25,4 +24,9 @@ void Rating::display() const{
     std::cout << "UserID: " << userId;
     std::cout << " MovieID: " << movieId;
     std::cout << " Score: " << score << std::endl;;
+}
+
+std::ostream& operator<<(std::ostream& os, const Rating& r){
+    os << "User ID: " << r.getUserId() << " Movie ID: " << r.getMovieId() << " Score: " << r.getScore();
+    return os;
 }

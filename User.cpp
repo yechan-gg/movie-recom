@@ -24,3 +24,4 @@ std::ostream& operator<<(std::ostream& os, const User& u) {
     os << "이름: " << u.getName() << " email: " << u.getEmail();
     return os;
 }
+

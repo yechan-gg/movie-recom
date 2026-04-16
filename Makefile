@@ -4,8 +4,8 @@ CXXFLAGS = -std=c++17 -Wall -g
 
 # 파일 설정
 TARGET = Movie_Recommender
-SRCS = main.cpp Movie.cpp Rating.cpp User.cpp MovieManager.cpp UserManager.cpp
-OBJS = main.o Movie.o Rating.o User.o MovieManager.o UserManager.o
+SRCS = main.cpp Movie.cpp Rating.cpp User.cpp MovieManager.cpp UserManager.cpp RatingManager.cpp
+OBJS = main.o Movie.o Rating.o User.o MovieManager.o UserManager.o RatingManager.o
 
 # 기본 타겟
 all: $(TARGET)

@@ -11,6 +11,7 @@ public:
     void addMovie(const Movie& movie);
     void removeMovie(const std::string& title);
     Movie* findByTitle(const std::string& title);
+    Movie* findById(int id);
     void sortByRating();
     void showAll() const;
 };
