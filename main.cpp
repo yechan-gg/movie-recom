@@ -29,29 +29,76 @@ int main() {
     MovieManager movieManager;
     UserManager userManager;
     RatingManager ratingManager;
-    int command = 1;
+    int command;
+    bool keepGoing = 1;
+    int movieId, movieYear, userId, score;
+    std::string movieTitle, movieGenre, userName, userEmail;
 
-    while(command){
+    while(keepGoing){
         showStatus();
         std::cin >> command;
+        switch(command){
+            case 1:
+                std::cout << "영화 ID: ";
+                std::cin >> movieId;
+                
+                std::cout << "영화 제목: ";
+                std::cin.ignore();
+                std::getline(std::cin, movieTitle);
+
+                std::cout << "장르: ";
+                std::getline(std::cin, movieGenre);
+
+                std::cout << "개봉년도: ";
+                std::cin >> movieYear;
+                movieManager.addMovie(Movie(movieId, movieTitle, movieGenre, movieYear));
+                break;
+            case 2:
+                std::cout << "찾으려는 영화의 제목을 입력하세요: ";
+                std::cin.ignore();
+                std::getline(std::cin, movieTitle);
+                movieManager.findByTitle(movieTitle)->display();
+                break;
+            case 3:
+                movieManager.showAll();
+                break;
+            case 4:
+                movieManager.sortByRating();
+                movieManager.showAll();
+                break;
+            case 5:
+                std::cout << "유저 ID: ";
+                std::cin >> userId;
+                
+                std::cout << "유저 이름: ";
+                std::cin.ignore();
+                std::getline(std::cin, userName);
+
+                std::cout << "Email: ";
+                std::getline(std::cin, userEmail);
+                userManager.addUser(User(userId, userName, userEmail));
+                break;
+            case 6:
+                userManager.showAll();
+                break;
+            case 7:
+                std::cout << "유저 ID: ";
+                std::cin >> userId;
+                
+                std::cout << "영화 ID: ";
+                std::cin >> movieId;
+
+                std::cout << "평점: ";
+                std::cin >> score;
+                ratingManager.addRating(Rating(userId, movieId, score), movieManager);
+                break;
+            case 8:
+            case 0:
+                keepGoing = 0;
+                break;
+            default:
+                std::cout << "0 에서 8 사이의 정수를 입력해주세요." << std::endl;
+        }
     }
-
-    // movieManager.addMovie(Movie(1, "기생충", "드라마", 2019));
-    // movieManager.addMovie(Movie(2, "인터스텔라", "SF", 2014));
-    
-    // userManager.addUser(User(1, "Kim", "kkk@sadasa.com"));
-    // userManager.addUser(User(2, "Park", "PPP@weqeqw.com"));
-    
-    // ratingManager.addRating(Rating(1, 1, 3), movieManager);
-    // ratingManager.addRating(Rating(1, 2, 4), movieManager);
-    // ratingManager.addRating(Rating(2, 1, 1), movieManager);
-    // ratingManager.addRating(Rating(2, 2, 2), movieManager);  
-    
-    // ratingManager.showAll();
-    // movieManager.showAll();
-
-
-
-
     return 0;
 }
