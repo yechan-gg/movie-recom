@@ -19,3 +19,8 @@ void User::display() const{
     std::cout << " Name: " << name;
     std::cout << " Email: " << email << std::endl;;
 }
+
+std::ostream& operator<<(std::ostream& os, const User& u) {
+    os << "이름: " << u.getName() << " email: " << u.getEmail();
+    return os;
+}
