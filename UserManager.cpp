@@ -19,7 +19,6 @@ User* UserManager::findByName(const std::string& name){
         if(u.getName() == name)
             return &u;              //왜 &를 쓰는지 알아보자.
     }
-    std::cout << "해당하는 유저를 찾지 못했습니다." << std::endl;
     return NULL;
 }
 void UserManager::showAll() const{

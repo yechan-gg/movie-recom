@@ -20,7 +20,6 @@ Movie* MovieManager::findByTitle(const std::string& title){
         if(m.getTitle() == title)
             return &m;              //왜 &를 쓰는지 알아보자.
     }
-    std::cout << "해당하는 영화를 찾지 못했습니다." << std::endl;
     return NULL;
 }
 Movie* MovieManager::findById(int id){
@@ -28,7 +27,6 @@ Movie* MovieManager::findById(int id){
         if(m.getId() == id)
             return &m;              //왜 &를 쓰는지 알아보자.
     }
-    std::cout << "해당하는 영화를 찾지 못했습니다." << std::endl;
     return NULL;
 }
 void MovieManager::sortByRating(){

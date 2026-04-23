@@ -60,7 +60,10 @@ int main() {
                 std::cout << "\n찾으려는 영화의 제목을 입력하세요: ";
                 std::cin.ignore();
                 std::getline(std::cin, movieTitle);
-                movieManager.findByTitle(movieTitle)->display();
+                if(movieManager.findByTitle(movieTitle) != NULL)
+                    movieManager.findByTitle(movieTitle)->display();
+                else
+                    std::cout << "해당하는 영화를 찾지 못했습니다.\n" << std::endl;
                 std::cout << std::endl;
                 break;
             case 3:
@@ -96,12 +99,24 @@ int main() {
                 break;
             case 7:
                 std::cout << "\n====평점을 입력합니다===\n" << std::endl;
-                std::cout << "유저 ID: ";
-                std::cin >> userId;
+                std::cout << "유저 이름: ";
+                std::cin.ignore();
+                std::getline(std::cin, userName);
+                if(userManager.findByName(userName) != NULL)
+                    userId = userManager.findByName(userName) -> getId();
+                else{
+                    std::cout << "해당하는 유저를 찾지 못했습니다.\n" << std::endl;
+                    break;
+                }
+                std::cout << "영화 제목: ";
+                std::getline(std::cin, movieTitle);
+                if(movieManager.findByTitle(movieTitle) != NULL)
+                    movieId = movieManager.findByTitle(movieTitle) -> getId();
+                else{
+                    std::cout << "해당하는 영화를 찾지 못했습니다.\n" << std::endl;
+                    break;
+                }
                 
-                std::cout << "영화 ID: ";
-                std::cin >> movieId;
-
                 std::cout << "평점: ";
                 std::cin >> score;
                 ratingManager.addRating(Rating(userId, movieId, score), movieManager);
