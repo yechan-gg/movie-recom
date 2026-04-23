@@ -27,6 +27,6 @@ void Rating::display() const{
 }
 
 std::ostream& operator<<(std::ostream& os, const Rating& r){
-    os << "유저 ID: " << r.getUserId() << " 영화 ID: " << r.getMovieId() << " 평점: " << r.getScore();
+    os << "유저 ID: " << r.userId << " 영화 ID: " << r.movieId << " 평점: " << r.score;
     return os;
 }

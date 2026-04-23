@@ -21,7 +21,7 @@ void User::display() const{
 }
 
 std::ostream& operator<<(std::ostream& os, const User& u) {
-    os << "이름: " << u.getName() << " email: " << u.getEmail();
+    os << u.id << " 이름: " << u.name << " email: " << u.email;
     return os;
 }
 

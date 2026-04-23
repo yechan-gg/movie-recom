@@ -52,13 +52,16 @@ int main() {
 
                 std::cout << "개봉년도: ";
                 std::cin >> movieYear;
+                std::cout << std::endl;
+                
                 movieManager.addMovie(Movie(movieId, movieTitle, movieGenre, movieYear));
                 break;
             case 2:
-                std::cout << "찾으려는 영화의 제목을 입력하세요: ";
+                std::cout << "\n찾으려는 영화의 제목을 입력하세요: ";
                 std::cin.ignore();
                 std::getline(std::cin, movieTitle);
                 movieManager.findByTitle(movieTitle)->display();
+                std::cout << std::endl;
                 break;
             case 3:
                 std::cout << "\n===전체 영화 목록 출력=====\n" << std::endl;
@@ -82,6 +85,8 @@ int main() {
 
                 std::cout << "Email: ";
                 std::getline(std::cin, userEmail);
+                std::cout << std::endl;
+
                 userManager.addUser(User(userId, userName, userEmail));
                 break;
             case 6:
@@ -103,9 +108,10 @@ int main() {
                 break;
             case 8:
                 std::cout << "\n===영화의 평점 목록을 출력합니다===\n" << std::endl;
-                std::cout << "영화 ID: ";
-                std::cin >> movieId;
-                ratingManager.showByMovieId(movieId);
+                std::cout << "영화 제목: ";
+                std::cin.ignore();
+                std::getline(std::cin, movieTitle);
+                ratingManager.showByMovieId(movieManager.findByTitle(movieTitle) -> getId());
                 std::cout << "\n==================================\n" << std::endl;
                 break;
             case 0:
