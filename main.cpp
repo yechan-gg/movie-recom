@@ -36,7 +36,7 @@ int main() {
 
     while(keepGoing){
         showStatus();
-        std::cin >> command;
+        std::cin >> command; 
         switch(command){
             case 1:
                 std::cout << "\n===영화를 입력합니다===\n" << std::endl;
