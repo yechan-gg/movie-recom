@@ -9,5 +9,6 @@ private:
 public:
     RatingManager();
     void addRating(const Rating& rating, MovieManager& movies);
+    void showByMovieId(int movieId) const;
     void showAll() const;
 };

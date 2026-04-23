@@ -39,7 +39,7 @@ int main() {
         std::cin >> command;
         switch(command){
             case 1:
-                std::cout << "영화를 입력합니다" << std::endl;
+                std::cout << "\n===영화를 입력합니다===\n" << std::endl;
                 std::cout << "영화 ID: ";
                 std::cin >> movieId;
                 
@@ -61,16 +61,18 @@ int main() {
                 movieManager.findByTitle(movieTitle)->display();
                 break;
             case 3:
-                std::cout << "전체 영화 목록 출력" << std::endl;
+                std::cout << "\n===전체 영화 목록 출력=====\n" << std::endl;
                 movieManager.showAll();
+                std::cout << "\n===========================\n" << std::endl;
                 break;
             case 4:
-                std::cout << "평점순 영화 목록 출력(내림차순)" << std::endl;    
+                std::cout << "\n===평점순 영화 목록 출력(내림차순)===\n" << std::endl;    
                 movieManager.sortByRating();
                 movieManager.showAll();
+                std::cout << "\n====================================\n" << std::endl;
                 break;
             case 5:
-                std::cout << "사용자를 추가합니다" << std::endl;
+                std::cout << "\n===사용자를 추가합니다\n" << std::endl;
                 std::cout << "유저 ID: ";
                 std::cin >> userId;
                 
@@ -83,11 +85,12 @@ int main() {
                 userManager.addUser(User(userId, userName, userEmail));
                 break;
             case 6:
-                std::cout << "전체 유저 목록 출력" << std::endl;
+                std::cout << "\n===전체 유저 목록 출력===\n" << std::endl;
                 userManager.showAll();
+                std::cout << "\n========================\n" << std::endl;
                 break;
             case 7:
-                std::cout << "평점을 입력합니다" << std::endl;
+                std::cout << "\n====평점을 입력합니다===\n" << std::endl;
                 std::cout << "유저 ID: ";
                 std::cin >> userId;
                 
@@ -99,6 +102,12 @@ int main() {
                 ratingManager.addRating(Rating(userId, movieId, score), movieManager);
                 break;
             case 8:
+                std::cout << "\n===영화의 평점 목록을 출력합니다===\n" << std::endl;
+                std::cout << "영화 ID: ";
+                std::cin >> movieId;
+                ratingManager.showByMovieId(movieId);
+                std::cout << "\n==================================\n" << std::endl;
+                break;
             case 0:
                 std::cout << "프로그램 종료" << std::endl;
                 keepGoing = 0;
