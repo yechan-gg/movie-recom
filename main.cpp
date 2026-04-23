@@ -39,6 +39,7 @@ int main() {
         std::cin >> command;
         switch(command){
             case 1:
+                std::cout << "영화를 입력합니다" << std::endl;
                 std::cout << "영화 ID: ";
                 std::cin >> movieId;
                 
@@ -60,13 +61,16 @@ int main() {
                 movieManager.findByTitle(movieTitle)->display();
                 break;
             case 3:
+                std::cout << "전체 영화 목록 출력" << std::endl;
                 movieManager.showAll();
                 break;
             case 4:
+                std::cout << "평점순 영화 목록 출력(내림차순)" << std::endl;    
                 movieManager.sortByRating();
                 movieManager.showAll();
                 break;
             case 5:
+                std::cout << "사용자를 추가합니다" << std::endl;
                 std::cout << "유저 ID: ";
                 std::cin >> userId;
                 
@@ -79,9 +83,11 @@ int main() {
                 userManager.addUser(User(userId, userName, userEmail));
                 break;
             case 6:
+                std::cout << "전체 유저 목록 출력" << std::endl;
                 userManager.showAll();
                 break;
             case 7:
+                std::cout << "평점을 입력합니다" << std::endl;
                 std::cout << "유저 ID: ";
                 std::cin >> userId;
                 
@@ -94,6 +100,7 @@ int main() {
                 break;
             case 8:
             case 0:
+                std::cout << "프로그램 종료" << std::endl;
                 keepGoing = 0;
                 break;
             default:

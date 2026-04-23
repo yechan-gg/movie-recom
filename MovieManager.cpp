@@ -32,7 +32,12 @@ Movie* MovieManager::findById(int id){
     return NULL;
 }
 void MovieManager::sortByRating(){
-    sort(movies.begin(), movies.end());
+    sort(movies.begin(), movies.end(), 
+    [](const Movie& a, const Movie& b){
+        if(a.getAverageRating() != b.getAverageRating())
+            return a.getAverageRating() > b.getAverageRating();
+        return a.getTitle() < b.getTitle();
+    });
 }
 void MovieManager::showAll() const{
     for(const Movie& m : movies){
