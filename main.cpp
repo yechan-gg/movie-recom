@@ -3,7 +3,7 @@
 #include "Rating.h"
 #include "MovieManager.h"
 #include "UserManager.h"
-#include "RatingManager.h"
+#include "RatingManager.h" 
 
 void showStatus(){
     std::cout << "=== Movie Recommender ===\n" << std::endl;
@@ -53,7 +53,7 @@ int main() {
                 std::cout << "개봉년도: ";
                 std::cin >> movieYear;
                 std::cout << std::endl;
-                
+
                 movieManager.addMovie(Movie(movieId, movieTitle, movieGenre, movieYear));
                 break;
             case 2:
