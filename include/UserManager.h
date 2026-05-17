@@ -11,5 +11,8 @@ public:
     void removeUser(const std::string& name);
     User* findByName(const std::string& name);
     void showAll() const;
+
+    void loadFromFile(const std::string& filename);
+    void saveToFile(const std::string& filename);
 };
 

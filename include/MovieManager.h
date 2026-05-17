@@ -14,4 +14,7 @@ public:
     Movie* findById(int id);
     void sortByRating();
     void showAll() const;
+
+    void loadFromFile(const std::string& filename);
+    void saveToFile(const std::string& filename);
 };

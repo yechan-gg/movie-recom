@@ -21,7 +21,9 @@ int main() {
     RatingManager ratingManager;
     int command;
     bool isContinued = true;
-    
+    movieManager.loadFromFile("data/movies.csv");
+    userManager.loadFromFile("data/users.csv");
+    ratingManager.loadFromFile("data/ratings.csv", movieManager);
     while(true){
         if(!isContinued)
             break;
@@ -53,6 +55,9 @@ int main() {
             case 8:
                 command8_ShowRatings(movieManager, ratingManager);
                 break;
+            case 9:
+                
+                break;
             case 0:
                 std::cout << "프로그램 종료" << std::endl;
                 isContinued = false;
@@ -61,6 +66,9 @@ int main() {
                 std::cout << "0 에서 8 사이의 정수를 입력해주세요." << std::endl;
         }
     }
+    movieManager.saveToFile("data/movies.csv");
+    userManager.saveToFile("data/users.csv");
+    ratingManager.saveToFile("data/ratings.csv");
     return 0;
 }
 

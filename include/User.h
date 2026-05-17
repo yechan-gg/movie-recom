@@ -9,9 +9,11 @@ private:
 public:
     User();
     User(int id, const std::string& name, const std::string& email);
+
     int getId() const;
     std::string getName() const;
     std::string getEmail() const;
+    
     void display() const;
     friend std::ostream& operator<<(std::ostream& os, const User& u);
 };

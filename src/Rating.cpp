@@ -30,3 +30,7 @@ std::ostream& operator<<(std::ostream& os, const Rating& r){
     os << "유저 ID: " << r.userId << " 영화 ID: " << r.movieId << " 평점: " << r.score;
     return os;
 }
+bool Rating::operator<(const Rating& other) const{
+    if(userId != other.userId) return userId < other.userId;
+    return movieId < other.movieId;
+}

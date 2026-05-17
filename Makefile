@@ -1,11 +1,27 @@
 # 컴파일러 설정
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -g
+CXXFLAGS = -std=c++17 -Wall -g -Iinclude
 
 # 파일 설정
 TARGET = Movie_Recommender
-SRCS = main.cpp Movie.cpp Rating.cpp User.cpp MovieManager.cpp UserManager.cpp RatingManager.cpp
-OBJS = main.o Movie.o Rating.o User.o MovieManager.o UserManager.o RatingManager.o
+SRCDIR = src
+OBJDIR = obj
+
+SRCS = 	$(SRCDIR)/main.cpp \
+		$(SRCDIR)/Movie.cpp \
+		$(SRCDIR)/Rating.cpp \
+		$(SRCDIR)/User.cpp \
+		$(SRCDIR)/MovieManager.cpp \
+		$(SRCDIR)/UserManager.cpp \
+		$(SRCDIR)/RatingManager.cpp
+		
+OBJS = 	$(OBJDIR)/main.o \
+		$(OBJDIR)/Movie.o \
+		$(OBJDIR)/Rating.o \
+		$(OBJDIR)/User.o \
+		$(OBJDIR)/MovieManager.o \
+		$(OBJDIR)/UserManager.o \
+		$(OBJDIR)/RatingManager.o
 
 # 기본 타겟
 all: $(TARGET)
@@ -15,19 +31,15 @@ $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # 컴파일 규칙
-
-%.o: %.cpp
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# main.o: main.cpp calculator.h
-# 	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o
-# calculator.o: calculator.cpp calculator.h
-# 	$(CXX) $(CXXFLAGS) -c calculator.cpp -o calculator.o
-
+	
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
 
 # 정리
 clean:
-	rm -f $(TARGET) $(OBJS)
+	rm -rf $(OBJDIR) $(TARGET)
 
 run: $(TARGET)
 	./$<
