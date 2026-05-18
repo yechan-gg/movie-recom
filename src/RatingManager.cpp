@@ -80,3 +80,6 @@ void RatingManager::saveToFile(const std::string& filename) const{
     file.close();
 }
 
+int RatingManager::size() const{
+    return ratings.size();
+}

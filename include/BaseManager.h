@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 class BaseManager{
 public:
@@ -6,4 +7,6 @@ public:
     virtual void saveToFile(const std::string& filename) const = 0;    
 
     virtual int size() const = 0;
+
+    virtual ~BaseManager() = default;
 };

@@ -42,6 +42,10 @@ void MovieManager::sortByRating(){
         return a.getTitle() < b.getTitle();
     });
 }
+void MovieManager::sortById(){
+    sort(movies.begin(), movies.end(),
+    [](const Movie& a, const Movie& b) {return a.getId() < b.getId();} );
+}
 void MovieManager::showAll() const{
     for(const Movie& m : movies){
         std::cout << m << std::endl;
@@ -94,7 +98,7 @@ void MovieManager::loadRating(const std::string& filename){
 }
 
 
-void MovieManager::saveToFile(const std::string& filename){
+void MovieManager::saveToFile(const std::string& filename) const{
     std::ofstream file(filename);
     if(!file.is_open()){
         std::cerr << "Error: " << filename << " 저장 실패" << std::endl;
@@ -110,3 +114,6 @@ void MovieManager::saveToFile(const std::string& filename){
     file.close();
 }
 
+int MovieManager::size() const{
+    return movies.size();
+}

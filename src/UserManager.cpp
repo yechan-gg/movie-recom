@@ -50,7 +50,8 @@ void UserManager::loadFromFile(const std::string& filename){
     }
     file.close();
 }
-void UserManager::saveToFile(const std::string& filename){
+
+void UserManager::saveToFile(const std::string& filename) const{
     std::ofstream file(filename);
     if(!file.is_open()){
         std::cerr << "Error: " << filename << " 저장 실패" << std::endl;
@@ -65,3 +66,6 @@ void UserManager::saveToFile(const std::string& filename){
     file.close();
 }
 
+int UserManager::size() const{
+    return users.size();
+}

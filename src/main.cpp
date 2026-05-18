@@ -1,6 +1,7 @@
 #include "Movie.h"
 #include "User.h"
 #include "Rating.h"
+#include "BaseManager.h"
 #include "MovieManager.h"
 #include "UserManager.h"
 #include "RatingManager.h" 
@@ -67,6 +68,7 @@ int main() {
                 std::cout << "0 에서 8 사이의 정수를 입력해주세요." << std::endl;
         }
     }
+    movieManager.sortById();
     movieManager.saveToFile("data/movies.csv");
     userManager.saveToFile("data/users.csv");
     ratingManager.saveToFile("data/ratings.csv");
