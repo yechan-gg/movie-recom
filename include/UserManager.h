@@ -8,6 +8,8 @@ private:
     std::vector<User> users;
 public:
     UserManager();
+    std::vector<User> getUsers() const; 
+
     void addUser(const User& user);
     void removeUser(const std::string& name);
     User* findByName(const std::string& name);

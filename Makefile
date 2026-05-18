@@ -13,7 +13,8 @@ SRCS = 	$(SRCDIR)/main.cpp \
 		$(SRCDIR)/User.cpp \
 		$(SRCDIR)/MovieManager.cpp \
 		$(SRCDIR)/UserManager.cpp \
-		$(SRCDIR)/RatingManager.cpp
+		$(SRCDIR)/RatingManager.cpp \
+		$(SRCDIR)/Recommend.cpp
 		
 OBJS = 	$(OBJDIR)/main.o \
 		$(OBJDIR)/Movie.o \
@@ -21,7 +22,8 @@ OBJS = 	$(OBJDIR)/main.o \
 		$(OBJDIR)/User.o \
 		$(OBJDIR)/MovieManager.o \
 		$(OBJDIR)/UserManager.o \
-		$(OBJDIR)/RatingManager.o
+		$(OBJDIR)/RatingManager.o \
+		$(OBJDIR)/Recommend.o
 
 # 기본 타겟
 all: $(TARGET)

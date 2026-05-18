@@ -6,6 +6,9 @@
 RatingManager::RatingManager(){
 };
 
+std::vector<Rating> RatingManager::getRatings() const{
+    return ratings;
+}
 std::vector<int> RatingManager::getUIds() const{
     return uIds;
 }
@@ -35,14 +38,7 @@ void RatingManager::showAll() const{
     }
 }
 
-std::vector<Rating> RatingManager::findByUser(int userId){
-    std::vector<Rating> ratingOfUser;
-    for(const Rating& r : ratings){
-        if(userId == r.getUserId())
-            ratingOfUser.push_back(r);
-    }
-    return ratingOfUser;
-}
+
 
 void RatingManager::loadFromFile(const std::string& filename){
     std::ifstream file(filename);

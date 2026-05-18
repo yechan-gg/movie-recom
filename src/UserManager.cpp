@@ -5,6 +5,11 @@
 
 UserManager::UserManager(){
 }
+
+std::vector<User> UserManager::getUsers() const{
+    return users;
+}
+
 void UserManager::addUser(const User& user){
     users.push_back(user);
 }

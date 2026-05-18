@@ -6,6 +6,11 @@
 
 MovieManager::MovieManager(){
 }
+
+std::vector<Movie> MovieManager::getMovies() const{
+    return movies;
+}
+
 void MovieManager::addMovie(const Movie& movie){
     movies.push_back(movie);
 }

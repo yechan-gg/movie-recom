@@ -11,7 +11,9 @@ private:
 public:
     RatingManager();
 
+    std::vector<Rating> getRatings() const;
     std::vector<int> getUIds() const;
+    
     void addRating(const Rating& rating);
     void sortByUId();
      

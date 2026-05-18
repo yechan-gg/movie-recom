@@ -5,6 +5,7 @@
 #include "MovieManager.h"
 #include "UserManager.h"
 #include "RatingManager.h" 
+#include "Recommend.h"
 
 void showStatus();
 void command1_AddMovie(MovieManager& movieManager);
@@ -57,9 +58,19 @@ int main() {
             case 8:
                 command8_ShowRatings(movieManager, ratingManager);
                 break;
-            case 9:
-                
+            case 9:{
+                int target;
+                Recommend recommend(movieManager.getMovies(), ratingManager.getRatings(), ratingManager.getUIds());
+                std::cin >> target;
+                for(std::pair<int, double> i : recommend.findSimilarUsers(target, 1)){
+                    std::cout << "user " << i.first <<std::endl;
+                }
+                for(int i : recommend.recommendMovie(target, recommend.findSimilarUsers(target, 1), 1)){
+                    std::cout << "movie " << i << std::endl;
+                }
                 break;
+            }
+                
             case 0:
                 std::cout << "프로그램 종료" << std::endl;
                 isContinued = false;

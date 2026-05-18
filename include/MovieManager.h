@@ -9,6 +9,9 @@ private:
     std::vector<Movie> movies;
 public:
     MovieManager();
+
+    std::vector<Movie> getMovies() const;
+
     void addMovie(const Movie& movie);
     void addRating(int movieId, double score);
     void removeMovie(const std::string& title);
