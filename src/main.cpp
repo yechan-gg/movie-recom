@@ -59,14 +59,19 @@ int main() {
                 command8_ShowRatings(movieManager, ratingManager);
                 break;
             case 9:{
-                int target;
+                int userId;
                 Recommend recommend(movieManager.getMovies(), ratingManager.getRatings(), ratingManager.getUIds());
-                std::cin >> target;
-                for(std::pair<int, double> i : recommend.findSimilarUsers(target, 1)){
-                    std::cout << "user " << i.first <<std::endl;
+                std::cout << "\n===영화를 추천합니다===\n" << std::endl;
+                std::cout << "유저 ID: ";
+                std::cin >> userId;
+                std::cout << "유사도가 높은 상위 5명의 유저: ";
+                for(std::pair<int, double> i : recommend.findSimilarUsers(userId, 5)){
+                    std::cout << "user " << i.first << " ";
                 }
-                for(int i : recommend.recommendMovie(target, recommend.findSimilarUsers(target, 1), 1)){
-                    std::cout << "movie " << i << std::endl;
+                std::cout << std::endl;
+                std::cout << "\n===추천 영화===\n";
+                for(int i : recommend.recommendMovie(userId, recommend.findSimilarUsers(userId, 5), 5)){
+                    std::cout << *(movieManager.findById(i)) << std::endl;
                 }
                 break;
             }
@@ -80,6 +85,7 @@ int main() {
         }
     }
     movieManager.sortById();
+    ratingManager.sortByUId();
     movieManager.saveToFile("data/movies.csv");
     userManager.saveToFile("data/users.csv");
     ratingManager.saveToFile("data/ratings.csv");
@@ -101,7 +107,8 @@ void showStatus(){
 
     std::cout << "[ 평점 ]" << std::endl;
     std::cout << " 7. 평점 입력\n" <<
-                " 8. 영화별 평점 보기\n\n" <<
+                " 8. 영화별 평점 보기\n" <<
+                " 9. 영화 추천\n\n" <<
                 " 0. 종료\n\n" <<
                 "선택 > ";    
 }

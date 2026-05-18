@@ -67,16 +67,23 @@ void MovieManager::loadFromFile(const std::string& filename){
     std::string line;
     std::getline(file, line);
     while(std::getline(file, line)){
+
         std::stringstream ss(line);
         std::string token;
+
         std::getline(ss, token, ',');
         int id = std::stoi(token);
+
         std::getline(ss, token, ',');
         std::string title = token;
+
         std::getline(ss, token, ',');
         std::string genre = token;
+
         std::getline(ss, token, ',');
+        std::cout << token << std::endl;
         int releaseYear = std::stoi(token);
+
         movies.push_back(Movie(id, title, genre, releaseYear));
     }
     file.close();
