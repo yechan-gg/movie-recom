@@ -9,6 +9,9 @@ MovieManager::MovieManager(){
 void MovieManager::addMovie(const Movie& movie){
     movies.push_back(movie);
 }
+void MovieManager::addRating(int movieId, double score){
+    findById(movieId)->addRating(score);
+}
 void MovieManager::removeMovie(const std::string& title){
     for(size_t i = 0; i < movies.size(); i++){
         if(movies[i].getTitle() == title){
@@ -65,26 +68,44 @@ void MovieManager::loadFromFile(const std::string& filename){
         std::string genre = token;
         std::getline(ss, token, ',');
         int releaseYear = std::stoi(token);
-        std::getline(ss, token, ',');
-        double totalRating = std::stod(token);
-        std::getline(ss, token, ',');
-        int ratingCount = std::stoi(token);
-        movies.push_back(Movie(id, title, genre, releaseYear, totalRating, ratingCount));
+        movies.push_back(Movie(id, title, genre, releaseYear));
     }
     file.close();
 }
+void MovieManager::loadRating(const std::string& filename){
+    std::ifstream file(filename);
+    if(!file.is_open()){
+        std::cerr << "Error: " << filename << " 파일을 열 수 없습니다." << std::endl;
+        return;
+    }
+    std::string line;
+    std::getline(file, line);
+    while(std::getline(file, line)){
+        std::stringstream ss(line);
+        std::string token;
+        std::getline(ss, token, ',');
+        std::getline(ss, token, ',');
+        int mId = std::stoi(token);
+        std::getline(ss, token, ',');
+        double score = std::stod(token);
+        addRating(mId, score);
+    }
+    file.close();
+}
+
+
 void MovieManager::saveToFile(const std::string& filename){
     std::ofstream file(filename);
     if(!file.is_open()){
         std::cerr << "Error: " << filename << " 저장 실패" << std::endl;
         return;
     }
-    file << "id,title,genre,rating" << std::endl;
+    file << "id,title,genre,releaseYear" << std::endl;
     for(const auto& m : movies){
         file << m.getId()     << ","
              << m.getTitle()  << ","
              << m.getGenre()   << ","
-             << m.getRatingCount() << std::endl;
+             << m.getReleaseYear() << std::endl;
     }
     file.close();
 }

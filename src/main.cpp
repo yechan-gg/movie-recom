@@ -22,8 +22,9 @@ int main() {
     int command;
     bool isContinued = true;
     movieManager.loadFromFile("data/movies.csv");
+    movieManager.loadRating("data/ratings.csv");
     userManager.loadFromFile("data/users.csv");
-    ratingManager.loadFromFile("data/ratings.csv", movieManager);
+    ratingManager.loadFromFile("data/ratings.csv");
     while(true){
         if(!isContinued)
             break;
@@ -182,7 +183,8 @@ void command7_AddRating(MovieManager& movieManager, UserManager& userManager, Ra
                 
     std::cout << "평점: ";
     std::cin >> score;
-    ratingManager.addRating(Rating(userId, movieId, score), movieManager);
+    ratingManager.addRating(Rating(userId, movieId, score));
+    movieManager.addRating(movieId, score);
 }
 void command8_ShowRatings(MovieManager& movieManager, RatingManager& ratingManager){
     std::string movieTitle;

@@ -10,12 +10,11 @@ std::vector<int> RatingManager::getUIds() const{
     return uIds;
 }
 
-void RatingManager::addRating(const Rating& rating, MovieManager& movies){
+void RatingManager::addRating(const Rating& rating){
     auto it = std::find(uIds.begin(), uIds.end(), rating.getUserId());
         if(it == uIds.end())
             uIds.push_back(rating.getUserId());
     ratings.push_back(rating);
-    movies.findById(rating.getMovieId())->addRating(rating.getScore());
 }
 
 void RatingManager::sortByUId(){
@@ -45,7 +44,7 @@ std::vector<Rating> RatingManager::findByUser(int userId){
     return ratingOfUser;
 }
 
-void RatingManager::loadFromFile(const std::string& filename, MovieManager& movies){
+void RatingManager::loadFromFile(const std::string& filename){
     std::ifstream file(filename);
     if(!file.is_open()){
         std::cerr << "Error: " << filename << " 파일을 열 수 없습니다." << std::endl;
@@ -62,7 +61,7 @@ void RatingManager::loadFromFile(const std::string& filename, MovieManager& movi
         int mId = std::stoi(token);
         std::getline(ss, token, ',');
         double rating = std::stod(token);
-        addRating(Rating(uId, mId, rating), movies);
+        addRating(Rating(uId, mId, rating));
     }
     file.close();
 }
