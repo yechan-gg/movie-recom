@@ -3,10 +3,12 @@
 #include <string>
 class BaseManager{
 public:
+    //파일 입출력 
     virtual void loadFromFile(const std::string& filename) = 0;
     virtual void saveToFile(const std::string& filename) const = 0;    
 
     virtual int size() const = 0;
 
+    //소멸자
     virtual ~BaseManager() = default;
 };

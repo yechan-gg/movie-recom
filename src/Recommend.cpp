@@ -2,6 +2,7 @@
 #include <map>
 #include <set>
 
+//생성자
 Recommend::Recommend(){}
 Recommend::Recommend(const std::vector<Movie>& movies, const std::vector<Rating>& ratings, const std::vector<int>& uIds)
     : movies(movies), ratings(ratings), uIds(uIds){}
@@ -15,7 +16,7 @@ std::vector<Rating> Recommend::findByUser(int userId){
     return ratingOfUser;
 }
 
-
+//return 타입 double ()
 double Recommend::calculate(const std::vector<Rating>& user1, const std::vector<Rating>& user2){
     int commonCount = 0;
     int scoreDiffSum = 0;
@@ -51,6 +52,8 @@ std::vector<std::pair<int, double>> Recommend::findSimilarUsers(int target, int 
     });
 
     int limit = std::min(usersNum, (int) similarity.size());
+    if(limit == (int) similarity.size())
+        std::cout << "유사한 유저 수가 적으므로 " << limit << "명만 출력합니다" << std::endl;
     for(int i = 0; i < limit; i++){
         answer.push_back(similarity[i]);
     }
@@ -75,6 +78,8 @@ std::vector<int> Recommend::recommendMovie(int target, const std::vector<std::pa
 
     std::vector<int> answer;
     int limit = std::min(moviesNum, (int) sorted.size());
+    if(limit == (int) sorted.size())
+        std::cout << "추천 영화의 수가 적으므로 " << limit << "개 영화만 출력합니다" << std::endl;
     for(int i = 0; i < limit; i++){
         answer.push_back(sorted[i].first);
     }

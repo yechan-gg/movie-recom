@@ -1,17 +1,16 @@
 #pragma once
 #include <vector>
-
 #include "MovieManager.h"
 #include "RatingManager.h"
-
-
 
 class Recommend{
 private:
     std::vector<Movie> movies;
     std::vector<Rating> ratings;
     std::vector<int> uIds;
+
 public:
+    //생성자
     Recommend();
     Recommend(const std::vector<Movie>& movies, const std::vector<Rating>& ratings, const std::vector<int>& uIds);
 

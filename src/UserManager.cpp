@@ -3,16 +3,14 @@
 #include <fstream>
 #include <iostream>
 
-UserManager::UserManager(){
-}
+//생성자
+UserManager::UserManager(){}
 
-std::vector<User> UserManager::getUsers() const{
-    return users;
-}
+//getter
+std::vector<User> UserManager::getUsers() const{ return users; }
 
-void UserManager::addUser(const User& user){
-    users.push_back(user);
-}
+//유저 정보 관리
+void UserManager::addUser(const User& user){ users.push_back(user); }
 void UserManager::removeUser(const std::string& name){
     for(size_t i = 0; i < users.size(); i++){
         if(users[i].getName() == name){
@@ -21,6 +19,8 @@ void UserManager::removeUser(const std::string& name){
         }
     }
 }
+
+//유저 검색
 User* UserManager::findByName(const std::string& name){
     for(User& u: users){
         if(u.getName() == name)
@@ -28,12 +28,15 @@ User* UserManager::findByName(const std::string& name){
     }
     return NULL;
 }
+
+//출력
 void UserManager::showAll() const{
     for(const User& u : users){
         std::cout << u << std::endl;
     }
 }
-    
+
+//파일 입출력
 void UserManager::loadFromFile(const std::string& filename){
     std::ifstream file(filename);
     if(!file.is_open()){
@@ -55,7 +58,6 @@ void UserManager::loadFromFile(const std::string& filename){
     }
     file.close();
 }
-
 void UserManager::saveToFile(const std::string& filename) const{
     std::ofstream file(filename);
     if(!file.is_open()){
