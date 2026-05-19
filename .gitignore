@@ -5,6 +5,7 @@
 # obj/ 디렉토리
 obj/
 # 실행 파일
+Movie_Recommender
 main
 app
 # IDE 설정
