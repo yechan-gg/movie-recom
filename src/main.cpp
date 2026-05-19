@@ -105,8 +105,15 @@ void command1_AddMovie(MovieManager& movieManager){
     std::string movieTitle, movieGenre;
 
     std::cout << "\n===영화를 입력합니다===\n" << std::endl;
-    std::cout << "영화 ID: ";
-    std::cin >> movieId;
+    while(1){
+        std::cout << "영화 ID: ";
+        std::cin >> movieId;
+        if(movieManager.findById(movieId) != NULL){
+            std::cout << "중복되는 ID입니다. 다시 입력해주세요." << std::endl;
+        }
+        else break;
+    }
+    
                 
     std::cout << "영화 제목: ";
     std::cin.ignore();
@@ -148,8 +155,14 @@ void command5_AddUser(UserManager& userManager){
     int userId;
     std::string userName, userEmail;
     std::cout << "\n===사용자를 추가합니다\n" << std::endl;
-    std::cout << "유저 ID: ";
-    std::cin >> userId;
+    while(1){
+        std::cout << "유저 ID: ";
+        std::cin >> userId;
+        if(userManager.findById(userId) != NULL){
+            std::cout << "중복되는 ID입니다. 다시 입력해주세요." << std::endl;
+        }
+        else break;
+    }
                 
     std::cout << "유저 이름: ";
     std::cin.ignore();
@@ -210,16 +223,22 @@ void command9_RecommendMovie(MovieManager& movieManager, RatingManager& ratingMa
     std::cout << "\n===영화를 추천합니다===\n" << std::endl;
     std::cout << "유저 ID: ";
     std::cin >> userId;
-    similarUser = recommend.findSimilarUsers(userId, 100);
-    std::cout << "--유사도가 높은 상위 5명의 유저--" << std::endl;
 
+    int N;
+    std::cout << "유사도 상위 N명을 검색합니다. N: ";
+    std::cin >> N; 
+    similarUser = recommend.findSimilarUsers(userId, N);
+    std::cout << "---유사도가 높은 상위 " << N <<"명의 유저---" << std::endl;
     for(std::pair<int, double> i : similarUser){
         std::cout << "user " << i.first << " ";
     }
-    std::cout << std::endl;
+    std::cout << "\n\n";
 
+    int M;
+    std::cout << "추천받을 영화의 수: ";
+    std::cin >> M;
     std::cout << "\n===추천 영화===\n";
-    for(int i : recommend.recommendMovie(userId, similarUser, 100)){
+    for(int i : recommend.recommendMovie(userId, similarUser, M)){
         std::cout << *(movieManager.findById(i)) << std::endl;
     }
     std::cout << std::endl;

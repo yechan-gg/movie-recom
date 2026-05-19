@@ -19,6 +19,7 @@ public:
     void removeUser(const std::string& name);
 
     //유저 검색
+    User* findById(int id);
     User* findByName(const std::string& name);
 
     //출력

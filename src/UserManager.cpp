@@ -21,6 +21,13 @@ void UserManager::removeUser(const std::string& name){
 }
 
 //유저 검색
+User* UserManager::findById(int id){
+    for(User& u: users){
+        if(u.getId() == id)
+            return &u;              //왜 &를 쓰는지 알아보자.
+    }
+    return NULL;
+}
 User* UserManager::findByName(const std::string& name){
     for(User& u: users){
         if(u.getName() == name)
