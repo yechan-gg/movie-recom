@@ -114,10 +114,11 @@ void command1_AddMovie(MovieManager& movieManager){
         else break;
     }
     
-                
+    //제목에 쉼표 처리
     std::cout << "영화 제목: ";
     std::cin.ignore();
     std::getline(std::cin, movieTitle);
+    std::replace(movieTitle.begin(), movieTitle.end(), ',', ' ');
 
     std::cout << "장르: ";
     std::getline(std::cin, movieGenre);

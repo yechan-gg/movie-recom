@@ -34,6 +34,7 @@ double Recommend::calculate(const std::vector<Rating>& user1, const std::vector<
     return commonCount * 10 - scoreDiffSum;
 }
 
+//userId 1과 100이 유사하개 csv 파일의 데이터를 만들었습니다.
 std::vector<std::pair<int, double>> Recommend::findSimilarUsers(int target, int usersNum){
     std::vector<std::pair<int, double>> similarity; 
     std::vector<std::pair<int, double>> answer; 
