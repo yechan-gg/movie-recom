@@ -223,23 +223,29 @@ void command9_RecommendMovie(MovieManager& movieManager, RatingManager& ratingMa
     std::cout << "\n===영화를 추천합니다===\n" << std::endl;
     std::cout << "유저 ID: ";
     std::cin >> userId;
-
-    int N;
+    
+    int N;    
     std::cout << "유사도 상위 N명을 검색합니다. N: ";
     std::cin >> N; 
     similarUser = recommend.findSimilarUsers(userId, N);
-    std::cout << "---유사도가 높은 상위 " << N <<"명의 유저---" << std::endl;
-    for(std::pair<int, double> i : similarUser){
-        std::cout << "user " << i.first << " ";
+    if((int) similarUser.size() == 0){
+        std::cout << "사용자의 평점 수가 너무 적습니다. 평점을 추가해주세요.\n" << std::endl;
     }
-    std::cout << "\n\n";
+    else{
+        std::cout << "---유사도가 높은 상위 " << N <<"명의 유저---" << std::endl;
+        for(std::pair<int, double> i : similarUser){
+            std::cout << "user " << i.first << " ";
+        }
+        std::cout << "\n\n";
 
-    int M;
-    std::cout << "추천받을 영화의 수: ";
-    std::cin >> M;
-    std::cout << "\n===추천 영화===\n";
-    for(int i : recommend.recommendMovie(userId, similarUser, M)){
-        std::cout << *(movieManager.findById(i)) << std::endl;
+        int M;
+        std::cout << "추천받을 영화의 수: ";
+        std::cin >> M;
+        std::cout << "\n===추천 영화===\n";
+        for(int i : recommend.recommendMovie(userId, similarUser, M)){
+            std::cout << *(movieManager.findById(i)) << std::endl;
+        }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
+    
 }

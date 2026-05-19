@@ -16,7 +16,7 @@ std::vector<Rating> Recommend::findByUser(int userId){
     return ratingOfUser;
 }
 
-//return 타입 double ()
+//return 타입 double (score가 double 타입)
 double Recommend::calculate(const std::vector<Rating>& user1, const std::vector<Rating>& user2){
     int commonCount = 0;
     int scoreDiffSum = 0;
@@ -37,10 +37,7 @@ double Recommend::calculate(const std::vector<Rating>& user1, const std::vector<
 std::vector<std::pair<int, double>> Recommend::findSimilarUsers(int target, int usersNum){
     std::vector<std::pair<int, double>> similarity; 
     std::vector<std::pair<int, double>> answer; 
-    if(findByUser(target).size() == 0){
-        std::cout << "사용자의 평점이 없습니다. 평점을 추가해주세요." << std::endl;
-        return answer;
-    }
+    if(findByUser(target).size() == 0){ return answer; }
 
     for(int i : uIds){
         if(target == i) continue;
