@@ -72,7 +72,7 @@ int main() {
                 std::cout << "0 에서 8 사이의 정수를 입력해주세요." << std::endl;
         }
     }
-    movieManager.sortById();
+    movieManager.sortById();    // 정렬해서 저장
     ratingManager.sortByUId();
     movieManager.saveToFile("data/movies.csv");
     userManager.saveToFile("data/users.csv");
@@ -108,7 +108,7 @@ void command1_AddMovie(MovieManager& movieManager){
     while(1){
         std::cout << "영화 ID: ";
         std::cin >> movieId;
-        if(movieManager.findById(movieId) != NULL){
+        if(movieManager.findById(movieId) != NULL){     //중복 ID 처리
             std::cout << "중복되는 ID입니다. 다시 입력해주세요." << std::endl;
         }
         else break;
@@ -151,6 +151,7 @@ void command4_SortAndShow(MovieManager& movieManager){
     movieManager.sortByRating();
     movieManager.showAll();
     std::cout << "\n====================================\n" << std::endl;
+    movieManager.sortById();
 }
 void command5_AddUser(UserManager& userManager){
     int userId;
@@ -159,7 +160,7 @@ void command5_AddUser(UserManager& userManager){
     while(1){
         std::cout << "유저 ID: ";
         std::cin >> userId;
-        if(userManager.findById(userId) != NULL){
+        if(userManager.findById(userId) != NULL){     //중복 ID 처리
             std::cout << "중복되는 ID입니다. 다시 입력해주세요." << std::endl;
         }
         else break;

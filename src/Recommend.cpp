@@ -7,6 +7,8 @@ Recommend::Recommend(){}
 Recommend::Recommend(const std::vector<Movie>& movies, const std::vector<Rating>& ratings, const std::vector<int>& uIds)
     : movies(movies), ratings(ratings), uIds(uIds){}
 
+//userId에 따른 Rating vector 리턴
+//그대로 유사도 계산 함수에 사용
 std::vector<Rating> Recommend::findByUser(int userId){
     std::vector<Rating> ratingOfUser;
     for(const Rating& r : ratings){
@@ -16,7 +18,7 @@ std::vector<Rating> Recommend::findByUser(int userId){
     return ratingOfUser;
 }
 
-//return 타입 double (score가 double 타입)
+//return 타입 double (score가 double 타입) 나머진 그대로 가져감
 double Recommend::calculate(const std::vector<Rating>& user1, const std::vector<Rating>& user2){
     int commonCount = 0;
     int scoreDiffSum = 0;
@@ -38,6 +40,8 @@ double Recommend::calculate(const std::vector<Rating>& user1, const std::vector<
 std::vector<std::pair<int, double>> Recommend::findSimilarUsers(int target, int usersNum){
     std::vector<std::pair<int, double>> similarity; 
     std::vector<std::pair<int, double>> answer; 
+
+    //평점이 0개인 사용자는 빈 벡터 반환 
     if(findByUser(target).size() == 0){ return answer; }
 
     for(int i : uIds){
@@ -50,6 +54,8 @@ std::vector<std::pair<int, double>> Recommend::findSimilarUsers(int target, int 
     });
 
     int limit = std::min(usersNum, (int) similarity.size());
+
+    //유저 수가 적을 때
     if(limit == (int) similarity.size())
         std::cout << "유사한 유저 수가 적으므로 " << limit << "명만 출력합니다" << std::endl;
     for(int i = 0; i < limit; i++){
@@ -58,6 +64,7 @@ std::vector<std::pair<int, double>> Recommend::findSimilarUsers(int target, int 
     return answer;
 }
 
+//영화 추천 공식 : 유사도 * 평점
 std::vector<int> Recommend::recommendMovie(int target, const std::vector<std::pair<int, double>>& similarUsers, int moviesNum){
     std::set<int> myMovies;
     std::map<int, double> movieScores;
@@ -76,6 +83,8 @@ std::vector<int> Recommend::recommendMovie(int target, const std::vector<std::pa
 
     std::vector<int> answer;
     int limit = std::min(moviesNum, (int) sorted.size());
+
+    //영화의 수가 적을 때
     if(limit == (int) sorted.size())
         std::cout << "추천 영화의 수가 적으므로 " << limit << "개 영화만 출력합니다" << std::endl;
     for(int i = 0; i < limit; i++){
