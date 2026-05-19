@@ -16,6 +16,7 @@ void command5_AddUser(UserManager& userManager);
 void command6_ShowUser(const UserManager& userManager);
 void command7_AddRating(MovieManager& movieManager, UserManager& userManager, RatingManager& ratingManager);
 void command8_ShowRatings(MovieManager& movieManager, RatingManager& ratingManager);
+void command9_RecommendMovie(MovieManager& movieManager, RatingManager& ratingManager);
 
 int main() {
     MovieManager movieManager;
@@ -59,20 +60,21 @@ int main() {
                 command8_ShowRatings(movieManager, ratingManager);
                 break;
             case 9:{
-                int userId;
-                Recommend recommend(movieManager.getMovies(), ratingManager.getRatings(), ratingManager.getUIds());
-                std::cout << "\n===영화를 추천합니다===\n" << std::endl;
-                std::cout << "유저 ID: ";
-                std::cin >> userId;
-                std::cout << "유사도가 높은 상위 5명의 유저: ";
-                for(std::pair<int, double> i : recommend.findSimilarUsers(userId, 5)){
-                    std::cout << "user " << i.first << " ";
-                }
-                std::cout << std::endl;
-                std::cout << "\n===추천 영화===\n";
-                for(int i : recommend.recommendMovie(userId, recommend.findSimilarUsers(userId, 5), 5)){
-                    std::cout << *(movieManager.findById(i)) << std::endl;
-                }
+                command9_RecommendMovie(movieManager, ratingManager);
+                // int userId;
+                // Recommend recommend(movieManager.getMovies(), ratingManager.getRatings(), ratingManager.getUIds());
+                // std::cout << "\n===영화를 추천합니다===\n" << std::endl;
+                // std::cout << "유저 ID: ";
+                // std::cin >> userId;
+                // std::cout << "유사도가 높은 상위 5명의 유저: ";
+                // for(std::pair<int, double> i : recommend.findSimilarUsers(userId, 5)){
+                //     std::cout << "user " << i.first << " ";
+                // }
+                // std::cout << std::endl;
+                // std::cout << "\n===추천 영화===\n";
+                // for(int i : recommend.recommendMovie(userId, recommend.findSimilarUsers(userId, 5), 5)){
+                //     std::cout << *(movieManager.findById(i)) << std::endl;
+                // }
                 break;
             }
                 
@@ -214,4 +216,20 @@ void command8_ShowRatings(MovieManager& movieManager, RatingManager& ratingManag
     std::getline(std::cin, movieTitle);
     ratingManager.showByMovieId(movieManager.findByTitle(movieTitle) -> getId());
     std::cout << "\n==================================\n" << std::endl;
+}
+void command9_RecommendMovie(MovieManager& movieManager, RatingManager& ratingManager){
+    int userId;
+    Recommend recommend(movieManager.getMovies(), ratingManager.getRatings(), ratingManager.getUIds());
+    std::cout << "\n===영화를 추천합니다===\n" << std::endl;
+    std::cout << "유저 ID: ";
+    std::cin >> userId;
+    std::cout << "유사도가 높은 상위 5명의 유저: ";
+    for(std::pair<int, double> i : recommend.findSimilarUsers(userId, 5)){
+        std::cout << "user " << i.first << " ";
+    }
+    std::cout << std::endl;
+    std::cout << "\n===추천 영화===\n";
+    for(int i : recommend.recommendMovie(userId, recommend.findSimilarUsers(userId, 5), 5)){
+        std::cout << *(movieManager.findById(i)) << std::endl;
+    }
 }
