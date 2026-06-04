@@ -98,31 +98,37 @@ void MovieManager::loadFromFile(const std::string& filename){
 void MovieManager::loadRating(const std::string& filename){
     std::ifstream file(filename);
     if(!file.is_open()){
-        std::cerr << "Error: " << filename << " 파일을 열 수 없습니다." << std::endl;
+        throw std::runtime_error("파일을 열 수 없습니다: " + filename);
         return;
     }
     std::string line;
     std::getline(file, line);
+    int lineNum = 1;
     while(std::getline(file, line)){
+        try{
+            std::stringstream ss(line);
+            std::string token;
 
-        std::stringstream ss(line);
-        std::string token;
+            std::getline(ss, token, ',');
+            std::getline(ss, token, ',');
+            int mId = std::stoi(token);
 
-        std::getline(ss, token, ',');
-        std::getline(ss, token, ',');
-        int mId = std::stoi(token);
+            std::getline(ss, token, ',');
+            double score = std::stod(token);
 
-        std::getline(ss, token, ',');
-        double score = std::stod(token);
-
-        addRating(mId, score);
+            addRating(mId, score);
+        }
+        catch (const std::invalid_argument& e){
+            std::cout << "Error Line: " << lineNum << " Invalid Argument" << std::endl;   
+        }
+        lineNum++;
     }
     file.close();
 }
 void MovieManager::saveToFile(const std::string& filename) const{
     std::ofstream file(filename);
     if(!file.is_open()){
-        std::cerr << "Error: " << filename << " 저장 실패" << std::endl;
+        throw std::runtime_error("저장 실패: " + filename);
         return;
     }
     file << "id,title,genre,releaseYear" << std::endl;
