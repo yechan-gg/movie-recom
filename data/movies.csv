@@ -1,103 +1,201 @@
 id,title,genre,releaseYear
 1,Inception,SF,2010
-2,Parasite,Mystery,2019
-3,Interstellar,SF,2014
-4,The Matrix,SF,1999
-5,Oldboy,Drama,2003
-6,Dune,SF,2021
-7,기생충,Mystery,2019
-8,The Dark Knight,Action,2008
-9,Avatar,SF,2009
-10,Memento,Mystery,2000
-11,살인의 추억,Mystery,2003
-12,괴물,SF,2006
-13,Gladiator,Action,2000
-14,Titanic,Romance,1997
-15,La La Land,Musical,2016
-16,Whiplash,Drama,2014
-17,Forrest Gump,Drama,1994
-18,The Shawshank Redemption,Drama,1994
-19,올드보이,Drama,2003
-20,신과함께-죄와 벌,Fantasy,2017
-21,Mad Max: Fury Road,Action,2015
-22,Blade Runner 2048,SF,2017
-23,Tenet,SF,2020
-24,Shutter Island,Mystery,2010
-25,The Prestige,Mystery,2006
-26,곡성,Mystery,2016
-27,부산행,Action,2016
-28,명량,Action,2014
-29,Interstellar,SF,2014
-30,Gravity,SF,2013
-31,The Martian,SF,2015
-32,Arrival,SF,2016
-33,Her,Romance,2013
-34,Eternal Sunshine,Romance,2004
-35,About Time,Romance,2013
-36,너의 이름은.,Animation,2016
-37,센과 치히로의 행방불명,Animation,2001
-38,Toy Story 3,Animation,2010
-39,Coco,Animation,2017
-40,Inside Out,Animation,2015
-41,The Godfather,Crime,1972
-42,Pulp Fiction,Crime,1994
-43,Goodfellas,Crime,1990
-44,Joker,Crime,2019
-45,신세계,Crime,2013
-46,범죄도시,Action,2017
-47,베테랑,Action,2015
-48,극한직업,Comedy,2019
-49,도둑들,Crime,2012
-50,암살,Action,2015
-51,Fight Club,Drama,1999
-52,Se7en,Mystery,1995
-53,The Silence of the Lambs,Thriller,1991
-54,The Sixth Sense,Mystery,1999
-55,추격자,Thriller,2008
-56,아저씨,Action,2010
-57,킹스맨: 시크릿 에이전트,Action,2015
-58,Iron Man,Action,2008
-59,The Avengers,Action,2012
-60,Spider-Man: Into the Spider-Verse,Animation,2018
-61,Black Panther,Action,2018
-62,Get Out,Thriller,2017
-63,A Quiet Place,Thriller,2018
-64,Terminator 2,SF,1991
-65,Alien,SF,1979
-66,The Thing,Horror,1982
-67,곤지암,Horror,2018
-68,장화 홍련,Horror,2003
-69,The Truman Show,Drama,1998
-70,Catch Me If You Can,Drama,2002
-71,The Wolf of Wall Street,Comedy,2013
-72,Bohemian Rhapsody,Drama,2018
-73,소셜 네트워크,Drama,2010
-74,라디오 스타,Comedy,2006
-75,써니,Drama,2011
-76,국제시장,Drama,2014
-77,광해 왕이 된 남자,Drama,2012
-78,사도,Drama,2015
-79,밀정,Action,2016
-80,택시운전자,Drama,2017
-81,1987,Drama,2017
-82,남산의 부장들,Drama,2020
-83,헤어질 결심,Romance,2022
-84,헌트,Action,2022
-85,한산: 용의 출현,Action,2022
-86,Top Gun: Maverick,Action,2022
-87,Everything Everywhere All at Once,SF,2022
-88,Avatar: The Way of Water,SF,2022
-89,Dune: Part Two,SF,2024
-90,Oppenheimer,Drama,2023
-91,서울의 봄,Drama,2023
-92,파묘,Mystery,2024
-93,Spider-Man: No Way Home,Action,2021
-94,Knives Out,Mystery,2019
-95,Gone Girl,Thriller,2014
-96,Zootopia,Animation,2016
-97,Forrest Gump,Drama,1994
-98,The Green Mile,Drama,1999
-99,Schindler's List,Drama,1993
-100,Life Is Beautiful,Drama,1997
-101,dummy,dummy,2099
-102,쉼표 그리고 쉼표,쉼표,1010
+2,The Godfather,Crime,1972
+3,The Dark Knight,Action,2008
+4,The Godfather Part II,Crime,1974
+5,12 Angry Men,Drama,1957
+6,Schindler's List,Biography,1993
+7,The Lord of the Rings: The Return of the King,Action,2003
+8,Pulp Fiction,Crime,1994
+9,The Lord of the Rings: The Fellowship of the Ring,Action,2001
+10,The Good the Bad and the Ugly,Western,1966
+11,Forrest Gump,Drama,1994
+12,Fight Club,Drama,1999
+13,The Lord of the Rings: The Two Towers,Action,2002
+14,Inception,Action,2010
+15,Star Wars: Episode V - The Empire Strikes Back,Action,1980
+16,The Matrix,Action,1999
+17,Goodfellas,Biography,1990
+18,One Flew Over the Cuckoo's Nest,Drama,1975
+19,Se7en,Crime,1995
+20,Seven Samurai,Action,1954
+21,It's a Wonderful Life,Drama,1946
+22,The Silence of the Lambs,Crime,1991
+23,Saving Private Ryan,Drama,1998
+24,City of God,Crime,2002
+25,Life Is Beautiful,Comedy,1997
+26,The Green Mile,Crime,1999
+27,Interstellar,Adventure,2014
+28,Star Wars: Episode IV - A New Hope,Action,1977
+29,Terminator 2: Judgment Day,Action,1991
+30,Back to the Future,Adventure,1985
+31,Spirited Away,Animation,2001
+32,Psycho,Horror,1960
+33,The Pianist,Biography,2002
+34,Parasite,Drama,2019
+35,Leon: The Professional,Action,1994
+36,The Lion King,Animation,1994
+37,Gladiator,Action,2000
+38,American History X,Drama,1998
+39,The Departed,Crime,2006
+40,The Prestige,Mystery,2006
+41,Whiplash,Drama,2014
+42,The Usual Suspects,Crime,1995
+43,Casablanca,Drama,1942
+44,Grave of the Fireflies,Animation,1988
+45,Harakiri,Action,1962
+46,The Intouchables,Biography,2011
+47,Modern Times,Comedy,1936
+48,Once Upon a Time in the West,Western,1968
+49,Cinema Paradiso,Drama,1988
+50,Rear Window,Mystery,1954
+51,Alien,Horror,1979
+52,City Lights,Comedy,1931
+53,Apocalypse Now,Drama,1979
+54,Memento,Mystery,2000
+55,Django Unchained,Western,2012
+56,Raiders of the Lost Ark,Adventure,1981
+57,WALL-E,Animation,2008
+58,The Lives of Others,Drama,2006
+59,Sunset Boulevard,Drama,1950
+60,Paths of Glory,War,1957
+61,The Shining,Horror,1980
+62,The Great Dictator,Comedy,1940
+63,Witness for the Prosecution,Mystery,1957
+64,Aliens,Action,1986
+65,Spider-Man: Into the Spider-Verse,Animation,2018
+66,American Beauty,Drama,1999
+67,Dr. Strangelove,Comedy,1964
+68,The Dark Knight Rises,Action,2012
+69,Oldboy,Action,2003
+70,Amadeus,Biography,1984
+71,Inglourious Basterds,Adventure,2009
+72,Coco,Animation,2017
+73,Requiem for a Dream,Drama,2000
+74,Joker,Crime,2019
+75,Braveheart,Biography,1995
+76,The Boat,Drama,1981
+77,Toy Story,Animation,1995
+78,High and Low,Crime,1963
+79,Once Upon a Time in America,Crime,1984
+80,Princess Mononoke,Animation,1997
+81,Good Will Hunting,Drama,1997
+82,Star Wars: Episode VI - Return of the Jedi,Action,1983
+83,Your Name.,Animation,2016
+84,Singin' in the Rain,Comedy,1952
+85,Reservoir Dogs,Crime,1992
+86,3 Idiots,Comedy,2009
+87,The Hunt,Drama,2012
+88,Citizen Kane,Drama,1941
+89,Lawrence of Arabia,Adventure,1962
+90,Toy Story 3,Animation,2010
+91,Requiem for a Heavyweight,Drama,1962
+92,Vertigo,Mystery,1958
+93,Eternal Sunshine of the Spotless Mind,Drama,2004
+94,Amelie,Comedy,2001
+95,A Clockwork Orange,Crime,1971
+96,Full Metal Jacket,War,1987
+97,Double Indemnity,Crime,1944
+98,Scarface,Crime,1983
+99,Taxi Driver,Crime,1976
+100,To Kill a Mockingbird,Drama,1962
+101,The Sting,Comedy,1973
+102,L.A. Confidential,Crime,1997
+103,Heat,Crime,1995
+104,Metropolis,Sci-Fi,1927
+105,North by Northwest,Mystery,1959
+106,Snatch,Comedy,2000
+107,Indiana Jones and the Last Crusade,Adventure,1989
+108,A Separation,Drama,2011
+109,Die Hard,Action,1988
+110,Arrival,Sci-Fi,2016
+111,Incendies,Drama,2010
+112,Shutter Island,Mystery,2010
+113,Downfall,Biography,2004
+114,The Truman Show,Comedy,1998
+115,The Sixth Sense,Mystery,1999
+116,The Thing,Horror,1982
+117,Jurassic Park,Adventure,1993
+118,The Big Lebowski,Comedy,1998
+119,Blade Runner,Sci-Fi,1982
+120,The Deer Hunter,Drama,1978
+121,Cool Hand Luke,Drama,1967
+122,The Third Man,Mystery,1949
+123,Fargo,Crime,1996
+124,Logan,Action,2017
+125,Gran Torino,Drama,2008
+126,The Elephant Man,Biography,1980
+127,The Grand Budapest Hotel,Comedy,2014
+128,Gone with the Wind,Drama,1939
+129,The Kid,Comedy,1921
+130,The Wolf of Wall Street,Biography,2013
+131,The Gold Rush,Comedy,1925
+132,On the Waterfront,Drama,1954
+133,V for Vendetta,Action,2005
+134,Gone Girl,Mystery,2014
+135,Inside Out,Animation,2015
+136,Lock Stock and Two Smoking Barrels,Comedy,1998
+137,The General,Action,1926
+138,The Great Escape,Adventure,1963
+139,Sherlock Jr.,Comedy,1924
+140,Howl's Moving Castle,Animation,2004
+141,Catch Me If You Can,Biography,2002
+142,How to Train Your Dragon,Animation,2010
+143,Blade Runner 2049,Sci-Fi,2017
+144,No Country for Old Men,Crime,2007
+145,About Time,Romance,2013
+146,The Secret in Their Eyes,Mystery,2009
+147,Prisoners,Mystery,2013
+148,Train to Busan,Horror,2016
+149,Warrior,Action,2011
+150,Into the Wild,Adventure,2007
+151,Platoon,War,1986
+152,The Terminator,Action,1984
+153,Rush,Biography,2013
+154,Stand by Me,Drama,1986
+155,Mad Max: Fury Road,Action,2015
+156,Network,Drama,1976
+157,The Exorcist,Horror,1973
+158,Spotlight,Biography,2015
+159,Hotel Rwanda,Biography,2004
+160,The Wailing,Mystery,2016
+161,Logan,Action,2017
+162,Hacksaw Ridge,Biography,2016
+163,The Truman Show,Drama,1998
+164,Ben-Hur,Adventure,1959
+165,1917,War,2019
+166,Before Sunrise,Romance,1995
+167,Before Sunset,Romance,2004
+168,The Incredibles,Animation,2004
+169,Monsters Inc.,Animation,2001
+170,The Sixth Sense,Thriller,1999
+171,Life of Pi,Adventure,2012
+172,A Beautiful Mind,Biography,2001
+173,The Martian,Sci-Fi,2015
+174,Gravity,Sci-Fi,2013
+175,The Revenant,Adventure,2015
+176,The Social Network,Biography,2010
+177,Avatar,Sci-Fi,2009
+178,The Avengers,Action,2012
+179,La La Land,Romance,2016
+180,Dunkirk,War,2017
+181,The Irishman,Biography,2019
+182,Knives Out,Mystery,2019
+183,Tenet,Sci-Fi,2020
+184,Dune,Sci-Fi,2021
+185,Top Gun: Maverick,Action,2022
+186,Oppenheimer,Biography,2023
+187,Everything Everywhere All at Once,Action,2022
+188,Spider-Man: Across the Spider-Verse,Animation,2023
+189,The Batman,Action,2022
+190,Glass Onion,Mystery,2022
+191,Bohemian Rhapsody,Biography,2018
+192,Green Book,Biography,2018
+193,The King's Speech,Biography,2010
+194,Slumdog Millionaire,Drama,2008
+195,No Time to Die,Action,2021
+196,Black Panther,Action,2018
+197,Thor: Ragnarok,Action,2017
+198,Guardians of the Galaxy,Action,2014
+199,Iron Man,Action,2008
+200,Zootopia,Animation,2016

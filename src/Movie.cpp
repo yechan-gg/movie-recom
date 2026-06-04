@@ -1,5 +1,6 @@
 #include "Movie.h"
 #include <iostream>
+#include <iomanip>
 
 //생성자
 Movie::Movie()
@@ -46,6 +47,10 @@ bool Movie::operator>(const Movie& other) const{ return other < *this; }
 bool Movie::operator<=(const Movie& other) const{ return !(other < *this); }
 bool Movie::operator>=(const Movie& other) const{ return  !(*this < other); }
 std::ostream& operator<<(std::ostream& os, const Movie& m) {
-    os << m.id << ".  [ " << m.title << " ]  " << m.releaseYear << "년  " << m.getAverageRating() << "★  " << m.genre;
+    os  << std::setfill(' ') << std::setw(3) << m.id << ". " 
+        << std::setfill(' ') << std::setw(50) << m.title << " (" << m.releaseYear << ") " 
+        << std::setfill(' ') << std::setw(10) << m.genre 
+        << " 평점: "  << std::fixed << std::setprecision(1) << m.getAverageRating() 
+        << " 평점수: " << m.ratingCount;
     return os;
 }
