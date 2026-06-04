@@ -8,15 +8,16 @@
 #include "Recommend.h"
 
 void showStatus();
-void command1_AddMovie(MovieManager& movieManager);
-void command2_FindMovie(MovieManager& movieManager);
-void command3_ShowMovie(const MovieManager& movieManager);
-void command4_SortAndShow(MovieManager& movieManager);
-void command5_AddUser(UserManager& userManager);
-void command6_ShowUser(const UserManager& userManager);
-void command7_AddRating(MovieManager& movieManager, UserManager& userManager, RatingManager& ratingManager);
-void command8_ShowRatings(MovieManager& movieManager, RatingManager& ratingManager);
-void command9_RecommendMovie(MovieManager& movieManager, RatingManager& ratingManager);
+void addMovie(MovieManager& movieManager);
+Movie* findMovie(MovieManager& movieManager, std::string title);
+User* findMovie(UserManager& userManager, std::string name);
+void searchMovie(MovieManager& movieManager);
+void showMovie(const MovieManager& movieManager);
+void addUser(UserManager& userManager);
+void showUser(const UserManager& userManager);
+void addRating(MovieManager& movieManager, UserManager& userManager, RatingManager& ratingManager);
+void showRatings(MovieManager& movieManager, RatingManager& ratingManager);
+void recommendMovie(MovieManager& movieManager, RatingManager& ratingManager);
 
 int main() {
     MovieManager movieManager;
@@ -36,31 +37,32 @@ int main() {
         std::cin >> command; 
         switch(command){
             case 1:
-                command1_AddMovie(movieManager);
+                addMovie(movieManager);
                 break;
             case 2:
-                command2_FindMovie(movieManager);
+                searchMovie(movieManager);
                 break;
             case 3:
-                command3_ShowMovie(movieManager);
+                showMovie(movieManager);
                 break;
             case 4:
-                command4_SortAndShow(movieManager);
+                movieManager.sortByRating();
+                showMovie(movieManager);
                 break;
             case 5:
-                command5_AddUser(userManager);
+                addUser(userManager);
                 break;
             case 6:
-                command6_ShowUser(userManager);
+                showUser(userManager);
                 break;
             case 7:
-                command7_AddRating(movieManager, userManager, ratingManager);
+                addRating(movieManager, userManager, ratingManager);
                 break;
             case 8:
-                command8_ShowRatings(movieManager, ratingManager);
+                showRatings(movieManager, ratingManager);
                 break;
             case 9:{
-                command9_RecommendMovie(movieManager, ratingManager);
+                recommendMovie(movieManager, ratingManager);
                 break;
             }
                 
@@ -100,11 +102,11 @@ void showStatus(){
                 " 0. 종료\n\n" <<
                 "선택 > ";    
 }
-void command1_AddMovie(MovieManager& movieManager){
+void addMovie(MovieManager& movieManager){
     int movieId, movieYear;
     std::string movieTitle, movieGenre;
 
-    std::cout << "\n===영화를 입력합니다===\n" << std::endl;
+    std::cout << "\n영화를 입력합니다\n" << std::endl;
     while(1){
         std::cout << "영화 ID: ";
         std::cin >> movieId;
@@ -113,50 +115,68 @@ void command1_AddMovie(MovieManager& movieManager){
         }
         else break;
     }
-    
-    //제목에 쉼표 처리
     std::cout << "영화 제목: ";
     std::cin.ignore();
     std::getline(std::cin, movieTitle);
-    std::replace(movieTitle.begin(), movieTitle.end(), ',', ' ');
-
+    std::replace(movieTitle.begin(), movieTitle.end(), ',', ' ');   // title의 , 제거
     std::cout << "장르: ";
     std::getline(std::cin, movieGenre);
-
+    std::replace(movieGenre.begin(), movieGenre.end(), ',', ' ');
     std::cout << "개봉년도: ";
     std::cin >> movieYear;
-    std::cout << std::endl;
 
     movieManager.addMovie(Movie(movieId, movieTitle, movieGenre, movieYear));
-}
-void command2_FindMovie(MovieManager& movieManager){
-    std::string movieTitle;
 
-    std::cout << "\n찾으려는 영화의 제목을 입력하세요: ";
-    std::cin.ignore();
-    std::getline(std::cin, movieTitle);
-    if(movieManager.findByTitle(movieTitle) == NULL)
-        std::cout << "해당하는 영화를 찾지 못했습니다.\n" << std::endl;       
-    else
-        movieManager.findByTitle(movieTitle)->display();
     std::cout << std::endl;
 }
-void command3_ShowMovie(const MovieManager& movieManager){
-    std::cout << "\n===전체 영화 목록 출력=====\n" << std::endl;
-    movieManager.showAll();
-    std::cout << "\n===========================\n" << std::endl;
+Movie* findMovie(MovieManager& movieManager, std::string title){
+    int movieId;    
+    try{
+        movieId = std::stoi(title);
+        if(std::to_string(movieId) == title)
+            return movieManager.findById(movieId);
+    }
+    catch(const std::invalid_argument& e){
+    }
+    return movieManager.findByTitle(title);     
 }
-void command4_SortAndShow(MovieManager& movieManager){
-    std::cout << "\n===평점순 영화 목록 출력(내림차순)===\n" << std::endl;    
-    movieManager.sortByRating();
-    movieManager.showAll();
-    std::cout << "\n====================================\n" << std::endl;
-    movieManager.sortById();
+User* findUser(UserManager& userManager, std::string name){
+    int userId;    
+    try{
+        userId = std::stoi(name);
+        if(std::to_string(userId) == name)
+            return userManager.findById(userId);
+    }
+    catch(const std::invalid_argument& e){
+    }
+    return userManager.findByName(name);     
 }
-void command5_AddUser(UserManager& userManager){
+void searchMovie(MovieManager& movieManager){
+    std::string movieTitle;
+
+    std::cout << "\n영화의 평점 목록을 출력합니다\n" << std::endl;
+    std::cout << "영화 제목 or ID: ";
+    std::cin.ignore();
+    std::getline(std::cin, movieTitle);
+
+    Movie* target = findMovie(movieManager, movieTitle);
+    if(target == NULL)
+        std::cout << "해당하는 영화를 찾지 못했습니다.\n" << std::endl;       
+    else
+        target->display();
+
+    std::cout << std::endl;
+}
+void showMovie(const MovieManager& movieManager){
+    std::cout << "\n영화 목록 출력\n\n\n" << std::endl;
+    movieManager.showAll();
+    std::cout << "\n\n\n\n" << std::endl;
+}
+void addUser(UserManager& userManager){
     int userId;
     std::string userName, userEmail;
-    std::cout << "\n===사용자를 추가합니다\n" << std::endl;
+
+    std::cout << "\n사용자를 추가합니다\n" << std::endl;
     while(1){
         std::cout << "유저 ID: ";
         std::cin >> userId;
@@ -164,61 +184,73 @@ void command5_AddUser(UserManager& userManager){
             std::cout << "중복되는 ID입니다. 다시 입력해주세요." << std::endl;
         }
         else break;
-    }
-                
+    }       
     std::cout << "유저 이름: ";
     std::cin.ignore();
     std::getline(std::cin, userName);
-
+    std::replace(userName.begin(), userName.end(), ',', ' ');
     std::cout << "Email: ";
     std::getline(std::cin, userEmail);
-    std::cout << std::endl;
-
+    std::replace(userEmail.begin(), userEmail.end(), ',', ' ');
+    
     userManager.addUser(User(userId, userName, userEmail));
+
+    std::cout << std::endl;
 }
-void command6_ShowUser(const UserManager& userManager){
-    std::cout << "\n===전체 유저 목록 출력===\n" << std::endl;
+void showUser(const UserManager& userManager){
+    std::cout << "\n전체 유저 목록 출력\n\n\n" << std::endl;
     userManager.showAll();
-    std::cout << "\n========================\n" << std::endl;
+    std::cout << "\n\n\n\n" << std::endl;
 }
-void command7_AddRating(MovieManager& movieManager, UserManager& userManager, RatingManager& ratingManager){
+void addRating(MovieManager& movieManager, UserManager& userManager, RatingManager& ratingManager){
     std::string userName, movieTitle;
     int userId, movieId, score;
+    std::cout << "\n평점을 입력합니다\n" << std::endl;
 
-    std::cout << "\n====평점을 입력합니다===\n" << std::endl;
-    std::cout << "유저 이름: ";
+    std::cout << "유저 이름 or ID: ";
     std::cin.ignore();
     std::getline(std::cin, userName);
-    if(userManager.findByName(userName) != NULL)
-        userId = userManager.findByName(userName) -> getId();
-    else{
+    User* targetUser = findUser(userManager, userName);
+    if(targetUser == NULL){
         std::cout << "해당하는 유저를 찾지 못했습니다.\n" << std::endl;
         return;
     }
-    std::cout << "영화 제목: ";
-    std::getline(std::cin, movieTitle);
-    if(movieManager.findByTitle(movieTitle) != NULL)
-        movieId = movieManager.findByTitle(movieTitle) -> getId();
     else{
+        userId = targetUser->getId();
+    }
+
+    std::cout << "영화 제목 or ID: ";
+    std::getline(std::cin, movieTitle);
+    Movie* targetMovie = findMovie(movieManager, movieTitle);
+    if(targetMovie == NULL){
         std::cout << "해당하는 영화를 찾지 못했습니다.\n" << std::endl;
         return;
     }
-                
+    else{
+        movieId = targetMovie->getId();
+    }        
     std::cout << "평점: ";
     std::cin >> score;
+
     ratingManager.addRating(Rating(userId, movieId, score));
     movieManager.addRating(movieId, score);
 }
-void command8_ShowRatings(MovieManager& movieManager, RatingManager& ratingManager){
+void showRatings(MovieManager& movieManager, RatingManager& ratingManager){
     std::string movieTitle;
-    std::cout << "\n===영화의 평점 목록을 출력합니다===\n" << std::endl;
-    std::cout << "영화 제목: ";
+    std::cout << "\n영화의 평점 목록을 출력합니다\n" << std::endl;
+    std::cout << "영화 제목 or ID: ";
     std::cin.ignore();
     std::getline(std::cin, movieTitle);
-    ratingManager.showByMovieId(movieManager.findByTitle(movieTitle) -> getId());
-    std::cout << "\n==================================\n" << std::endl;
+
+    Movie* targetMovie = findMovie(movieManager, movieTitle);
+    if(targetMovie == NULL)
+        std::cout << "해당하는 영화를 찾지 못했습니다.\n" << std::endl;
+    else{
+        ratingManager.showByMovieId(targetMovie->getId());
+    }  
+    std::cout << "\n" << std::endl;
 }
-void command9_RecommendMovie(MovieManager& movieManager, RatingManager& ratingManager){
+void recommendMovie(MovieManager& movieManager, RatingManager& ratingManager){
     int userId;
     std::vector<std::pair<int, double>> similarUser;
     Recommend recommend(movieManager.getMovies(), ratingManager.getRatings(), ratingManager.getUIds());
@@ -251,3 +283,4 @@ void command9_RecommendMovie(MovieManager& movieManager, RatingManager& ratingMa
     }
     
 }
+
