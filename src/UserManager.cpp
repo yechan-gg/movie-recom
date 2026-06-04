@@ -24,14 +24,14 @@ void UserManager::removeUser(const std::string& name){
 User* UserManager::findById(int id){
     for(User& u: users){
         if(u.getId() == id)
-            return &u;              //왜 &를 쓰는지 알아보자.
+            return &u;             
     }
     return NULL;
 }
 User* UserManager::findByName(const std::string& name){
     for(User& u: users){
         if(u.getName() == name)
-            return &u;              //왜 &를 쓰는지 알아보자.
+            return &u;             
     }
     return NULL;
 }

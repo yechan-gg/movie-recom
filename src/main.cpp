@@ -7,7 +7,8 @@
 #include "RatingManager.h" 
 #include "Recommend.h"
 
-void showStatus();
+void showMainStatus();
+void showSubStatus(int command);
 void addMovie(MovieManager& movieManager);
 Movie* findMovie(MovieManager& movieManager, std::string title);
 User* findMovie(UserManager& userManager, std::string name);
@@ -23,57 +24,106 @@ int main() {
     MovieManager movieManager;
     UserManager userManager;
     RatingManager ratingManager;
-    int command;
-    bool isContinued = true;
     movieManager.loadFromFile("data/movies.csv");
     movieManager.loadRating("data/ratings.csv");
     userManager.loadFromFile("data/users.csv");
     ratingManager.loadFromFile("data/ratings.csv");
-    while(true){
-        if(!isContinued)
-            break;
-
-        showStatus();
+    
+    int command;
+    do{
+        showMainStatus();
         std::cin >> command; 
+        
         switch(command){
-            case 1:
-                addMovie(movieManager);
-                break;
-            case 2:
-                searchMovie(movieManager);
-                break;
-            case 3:
-                showMovie(movieManager);
-                break;
-            case 4:
-                movieManager.sortByRating();
-                showMovie(movieManager);
-                break;
-            case 5:
-                addUser(userManager);
-                break;
-            case 6:
-                showUser(userManager);
-                break;
-            case 7:
-                addRating(movieManager, userManager, ratingManager);
-                break;
-            case 8:
-                showRatings(movieManager, ratingManager);
-                break;
-            case 9:{
-                recommendMovie(movieManager, ratingManager);
-                break;
-            }
+            case 1:{
+                int order;
+                do{
+                    showSubStatus(command);
+                    std::cin >> order;
+                    switch(order){
+                        case 1:
+                            addMovie(movieManager);
+                            break;
+                        case 2:
+                            searchMovie(movieManager);
+                            break;
+                        case 4:
+                            movieManager.sortByRating();
+                        case 3:
+                            showMovie(movieManager);
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            std::cout << "0 에서 4 사이의 정수를 입력해주세요." << std::endl;
+                    }
+                }while(order != 0);
+                break;}
+            case 2:{
+                int order;
+                do{
+                    showSubStatus(command);
+                    std::cin >> order;
+                    switch (order){
+                    case 1:
+                        addUser(userManager);
+                        break;
+                    case 2:
+                        showUser(userManager);
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        std::cout << "0 에서 2 사이의 정수를 입력해주세요." << std::endl;
+                    }
+                }while(order != 0);
+                break;}
+            case 3:{
                 
+                int order;
+                do{
+                    showSubStatus(command);
+                    std::cin >> order;
+                    switch (order){
+                    case 1:
+                        addRating(movieManager, userManager, ratingManager);
+                        break;
+                    case 2:
+                        showRatings(movieManager, ratingManager);
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        std::cout << "0 에서 2 사이의 정수를 입력해주세요." << std::endl;
+                    }
+                }while(order != 0);
+                break;}
+            case 4:{
+                int order;
+                do{
+                    showSubStatus(command);
+                    std::cin >> order;
+                    switch (order){
+                    case 1:
+                        recommendMovie(movieManager, ratingManager);
+                        break;
+                    case 2:
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        std::cout << "0 에서 2 사이의 정수를 입력해주세요." << std::endl;
+                    }
+                }while(order != 0);
+                break;}
             case 0:
                 std::cout << "프로그램 종료" << std::endl;
-                isContinued = false;
                 break;
             default:
                 std::cout << "0 에서 8 사이의 정수를 입력해주세요." << std::endl;
         }
-    }
+    }while(command != 0);
+
     movieManager.sortById();    // 정렬해서 저장
     ratingManager.sortByUId();
     movieManager.saveToFile("data/movies.csv");
@@ -83,24 +133,64 @@ int main() {
 }
 
 
-void showStatus(){
+void showMainStatus(){
     std::cout << "=== Movie Recommender ===\n" << std::endl;
-    std::cout << "[ 영화 ]" << std::endl;
-    std::cout << " 1. 영화 추가\n" <<
-                " 2. 제목으로 검색\n" <<
-                " 3. 전체 목록 출력\n" <<
-                " 4. 평점순 정렬 출력\n" << std::endl;
+    std::cout << "1. [ 영화 ]" << std::endl;
+    std::cout << " 영화 추가\n" <<
+                 " 제목으로 검색\n" <<
+                 " 전체 목록 출력\n" <<
+                 " 평점순 정렬 출력\n" << std::endl;
 
-    std::cout << "[ 사용자 ]" << std::endl;
-    std::cout << " 5. 사용자 추가\n" <<
-                " 6. 사용자 목록 출력\n" << std::endl;
+    std::cout << "2. [ 사용자 ]" << std::endl;
+    std::cout << " 사용자 추가\n" <<
+                 " 사용자 목록 출력\n" << std::endl;
 
-    std::cout << "[ 평점 ]" << std::endl;
-    std::cout << " 7. 평점 입력\n" <<
-                " 8. 영화별 평점 보기\n" <<
-                " 9. 영화 추천\n\n" <<
-                " 0. 종료\n\n" <<
-                "선택 > ";    
+    std::cout << "3. [ 평점 ]" << std::endl;
+    std::cout << " 평점 입력\n" <<
+                 " 영화별 평점 보기\n" << std::endl;
+    
+    std::cout << "4. [ 추천 ]" << std::endl;
+    std::cout << " 유사 사용자 목록 출력\n" <<
+                 " 영화 추천\n" << std::endl;            
+
+    std::cout << "0. [ 종료 ]\n" << 
+                 "선택 > "; 
+}
+void showSubStatus(int command){
+    switch (command){
+    case 1:
+        std::cout << "\n [ 영화 ]" << std::endl;
+        std::cout << "1. 영화 추가\n" <<
+                     "2. 제목으로 검색\n" <<
+                     "3. 전체 목록 출력\n" <<
+                     "4. 평점순 정렬 출력\n" << 
+                     "0. 이전\n" <<
+                     "선택 > "; 
+        break;
+    case 2:
+        std::cout << "\n [ 사용자 ]" << std::endl;
+        std::cout << "1. 사용자 추가\n" <<
+                     "2. 사용자 목록 출력\n" << 
+                     "0. 이전\n" <<
+                     "선택 > "; 
+        break;
+    case 3:
+        std::cout << "\n [ 평점 ]" << std::endl;
+        std::cout << "1. 평점 입력\n" <<
+                     "2. 영화별 평점 보기\n" << 
+                     "0. 이전\n" <<
+                     "선택 > "; 
+        break;
+    case 4:
+        std::cout << "\n [ 추천 ]" << std::endl;
+        std::cout << "1. 유사 사용자 목록 출력\n" <<
+                     "2. 영화 추천\n" << 
+                     "0. 이전\n" <<
+                     "선택 > "; 
+    default:
+        break;
+    }
+    
 }
 void addMovie(MovieManager& movieManager){
     int movieId, movieYear;
@@ -246,6 +336,7 @@ void showRatings(MovieManager& movieManager, RatingManager& ratingManager){
     if(targetMovie == NULL)
         std::cout << "해당하는 영화를 찾지 못했습니다.\n" << std::endl;
     else{
+        targetMovie->display();
         ratingManager.showByMovieId(targetMovie->getId());
     }  
     std::cout << "\n" << std::endl;
