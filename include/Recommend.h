@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
+#include <map>
 #include "MovieManager.h"
 #include "RatingManager.h"
+
 
 class Recommend{
 private:
@@ -18,5 +20,8 @@ public:
     double calculate(const std::vector<Rating>& user1, const std::vector<Rating>& user2);
     std::vector<std::pair<int, double>> findSimilarUsers(int target, int usersNum); 
     
-    std::vector<int> recommendMovie(int target, const std::vector<std::pair<int, double>>& similarUsers, int moviesNum);
+    std::vector<std::pair<int,double>> recommendMovie(int target, const std::vector<std::pair<int, double>>& similarUsers);
+
+    std::vector<std::pair<int, double>> filterByGenre(const std::vector<std::pair<int, double>>& sorted, const std::string& genre);
+
 };
