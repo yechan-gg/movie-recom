@@ -1,5 +1,6 @@
 #include "Rating.h"
 #include <string>
+#include <iomanip>
 
 //생성자
 Rating::Rating()
@@ -26,6 +27,6 @@ bool Rating::operator<(const Rating& other) const{
     return movieId < other.movieId;
 }
 std::ostream& operator<<(std::ostream& os, const Rating& r){
-    os << "유저 ID: " << r.userId << " 영화 ID: " << r.movieId << " 평점: " << r.score;
+    os << "UID: " << std::setw(5) << r.userId << " / " << r.score << "점";
     return os;
 }

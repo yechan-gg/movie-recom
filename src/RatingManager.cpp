@@ -26,6 +26,7 @@ void RatingManager::sortByUId(){
 
 //출력
 void RatingManager::showByMovieId(int movieId) const{
+    std::cout << std::right;
     for(const Rating& r : ratings){
         if(r.getMovieId() == movieId)
             std::cout << r << std::endl;
@@ -41,28 +42,38 @@ void RatingManager::showAll() const{
 void RatingManager::loadFromFile(const std::string& filename){
     std::ifstream file(filename);
     if(!file.is_open()){
-        std::cerr << "Error: " << filename << " 파일을 열 수 없습니다." << std::endl;
+        throw std::runtime_error("파일을 열 수 없습니다: " + filename);
         return;
     }
     std::string line;
     std::getline(file, line);
+    int lineNum = 0;
     while(std::getline(file, line)){
-        std::stringstream ss(line);
-        std::string token;
-        std::getline(ss, token, ',');
-        int uId = std::stoi(token);
-        std::getline(ss, token, ',');
-        int mId = std::stoi(token);
-        std::getline(ss, token, ',');
-        double rating = std::stod(token);
-        addRating(Rating(uId, mId, rating));
+        try{
+            std::stringstream ss(line);
+            std::string token;
+            std::getline(ss, token, ',');
+            int uId = std::stoi(token);
+            std::getline(ss, token, ',');
+            int mId = std::stoi(token);
+            std::getline(ss, token, ',');
+            double rating = std::stod(token);
+            addRating(Rating(uId, mId, rating));
+        }
+        catch (const std::invalid_argument& e){
+            std::cout << "Error Line: " << lineNum << " Invalid Argument" << std::endl;   
+        }
+        catch (const std::out_of_range& e) {
+            std::cerr << "Error Line " << lineNum << ": 데이터 값이 자료형 변수 범위를 초과했습니다. (" << line << ")" << std::endl;
+        }
+        lineNum++;
     }
     file.close();
 }
 void RatingManager::saveToFile(const std::string& filename) const{
     std::ofstream file(filename);
     if(!file.is_open()){
-        std::cerr << "Error: " << filename << " 저장 실패" << std::endl;
+        throw std::runtime_error("저장 실패: " + filename);
         return;
     }
     file << "userId,movieId,score" << std::endl;

@@ -1,5 +1,4 @@
 #include "Recommend.h"
-#include <map>
 #include <set>
 
 //생성자
@@ -17,7 +16,17 @@ std::vector<Rating> Recommend::findByUser(int userId){
     }
     return ratingOfUser;
 }
-
+double Recommend::findSelfSimilarity(int target){
+    return (double) findByUser(target).size() * 10;
+}
+double Recommend::findMaximumSimilarity(int target){
+    double similarity = findSelfSimilarity(target);
+    double answer = 0;
+    for(const Rating& r : findByUser(target)){
+        answer += r.getScore() * similarity;
+    }
+    return answer;
+}
 //return 타입 double (score가 double 타입) 나머진 그대로 가져감
 double Recommend::calculate(const std::vector<Rating>& user1, const std::vector<Rating>& user2){
     int commonCount = 0;
@@ -65,7 +74,7 @@ std::vector<std::pair<int, double>> Recommend::findSimilarUsers(int target, int 
 }
 
 //영화 추천 공식 : 유사도 * 평점
-std::vector<int> Recommend::recommendMovie(int target, const std::vector<std::pair<int, double>>& similarUsers, int moviesNum){
+std::vector<std::pair<int,double>> Recommend::recommendMovie(int target, const std::vector<std::pair<int, double>>& similarUsers){
     std::set<int> myMovies;
     std::map<int, double> movieScores;
     for(const Rating& r : findByUser(target)){
@@ -81,14 +90,20 @@ std::vector<int> Recommend::recommendMovie(int target, const std::vector<std::pa
     std::vector<std::pair<int,double>> sorted(movieScores.begin(), movieScores.end());
     sort(sorted.begin(), sorted.end(),[](auto& a, auto& b){ return a.second > b.second; });
 
-    std::vector<int> answer;
-    int limit = std::min(moviesNum, (int) sorted.size());
+    return sorted;
+}
 
-    //영화의 수가 적을 때
-    if(limit == (int) sorted.size())
-        std::cout << "추천 영화의 수가 적으므로 " << limit << "개 영화만 출력합니다" << std::endl;
-    for(int i = 0; i < limit; i++){
-        answer.push_back(sorted[i].first);
+std::vector<std::pair<int, double>> Recommend::filterByGenre(const std::vector<std::pair<int, double>>& sorted, const std::string& genre){
+    std::vector<std::pair<int, double>> filtered;
+    for (const std::pair<int, double>& pair : sorted) {
+        int movieId = pair.first; // 영화 ID 추출
+        auto it = std::find_if(movies.begin(), movies.end(), [movieId](const Movie& m) {
+            return m.getId() == movieId;
+        });
+
+        if (it != movies.end() && it->getGenre() == genre) {
+            filtered.push_back(pair);
+        }
     }
-    return answer;
+    return filtered;
 }

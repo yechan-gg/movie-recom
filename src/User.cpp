@@ -1,5 +1,6 @@
 #include "User.h"
 #include <iostream>
+#include <iomanip>
 
 //생성자
 User::User(int id, const std::string& name, const std::string& email)
@@ -19,7 +20,8 @@ void User::display() const{
 
 //연산자 오버로딩
 std::ostream& operator<<(std::ostream& os, const User& u) {
-    os << u.id << " 이름: " << u.name << " email: " << u.email;
+    os  << std::setw(5) << std::to_string(u.id) + ". "
+        << std::setw(12) <<  u.name << u.email;
     return os;
 }
 

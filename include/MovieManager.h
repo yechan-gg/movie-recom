@@ -3,6 +3,7 @@
 #include <vector>
 #include "Movie.h"
 #include "BaseManager.h"
+#include <iomanip>
 
 class MovieManager : public BaseManager{
 private:
