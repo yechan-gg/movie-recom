@@ -26,6 +26,7 @@ void RatingManager::sortByUId(){
 
 //출력
 void RatingManager::showByMovieId(int movieId) const{
+    std::cout << std::right;
     for(const Rating& r : ratings){
         if(r.getMovieId() == movieId)
             std::cout << r << std::endl;
@@ -46,7 +47,7 @@ void RatingManager::loadFromFile(const std::string& filename){
     }
     std::string line;
     std::getline(file, line);
-    int lineNum = 1;
+    int lineNum = 0;
     while(std::getline(file, line)){
         try{
             std::stringstream ss(line);
@@ -61,6 +62,9 @@ void RatingManager::loadFromFile(const std::string& filename){
         }
         catch (const std::invalid_argument& e){
             std::cout << "Error Line: " << lineNum << " Invalid Argument" << std::endl;   
+        }
+        catch (const std::out_of_range& e) {
+            std::cerr << "Error Line " << lineNum << ": 데이터 값이 자료형 변수 범위를 초과했습니다. (" << line << ")" << std::endl;
         }
         lineNum++;
     }

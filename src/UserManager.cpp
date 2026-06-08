@@ -38,6 +38,7 @@ User* UserManager::findByName(const std::string& name){
 
 //출력
 void UserManager::showAll() const{
+    std::cout << std::left;
     for(const User& u : users){
         std::cout << u << std::endl;
     }

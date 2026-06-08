@@ -27,6 +27,6 @@ bool Rating::operator<(const Rating& other) const{
     return movieId < other.movieId;
 }
 std::ostream& operator<<(std::ostream& os, const Rating& r){
-    os << "UID: " << std::setfill(' ') << std::setw(3) << r.userId << " 평점: " << r.score;
+    os << "UID: " << std::setw(5) << r.userId << " / " << r.score << "점";
     return os;
 }

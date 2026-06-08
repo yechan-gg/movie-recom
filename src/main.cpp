@@ -7,6 +7,7 @@
 #include "RatingManager.h" 
 #include "Recommend.h"
 
+
 void showMainStatus();
 void showSubStatus(int command);
 void addMovie(MovieManager& movieManager);
@@ -19,7 +20,7 @@ void showUser(const UserManager& userManager);
 void addRating(MovieManager& movieManager, UserManager& userManager, RatingManager& ratingManager);
 void showRatings(MovieManager& movieManager, RatingManager& ratingManager);
 std::vector<std::pair<int, double>> userInquiry(User* target, Recommend& recommend, UserManager& userManager);
-void showSimilarUser(const std::vector<std::pair<int, double>>& similarUser, UserManager& userManager);
+void showSimilarUser(double selfSimilarity, const std::vector<std::pair<int, double>>& similarUser, UserManager& userManager);
 void recommendMovie(const std::vector<std::pair<int,double>>& resultMovie, MovieManager& movieManager);
 void showFiltered(const std::vector<std::pair<int,double>>& resultMovie, Recommend& recommend, MovieManager& movieManager);
 
@@ -109,6 +110,7 @@ int main() {
                 std::getline(std::cin, userName);
                 User* user = findUser(userManager, userName);
                 Recommend recommend(movieManager.getMovies(), ratingManager.getRatings(), ratingManager.getUIds());
+                double selfSimilarity = recommend.findSelfSimilarity(user->getId());
                 std::vector<std::pair<int, double>> similarUser = userInquiry(user, recommend, userManager);
                 std::vector<std::pair<int, double>> resultMovie = recommend.recommendMovie(user->getId(), similarUser);
                 std::cout << "유저 조회 완료.\n" << std::endl;
@@ -121,7 +123,7 @@ int main() {
                     std::cin >> order;
                     switch(order){
                     case 1:
-                        showSimilarUser(similarUser, userManager);
+                        showSimilarUser(selfSimilarity, similarUser, userManager);
                         break;
                     case 2:
                         recommendMovie(resultMovie, movieManager);
@@ -268,7 +270,7 @@ User* findUser(UserManager& userManager, std::string name){
 void searchMovie(MovieManager& movieManager){
     std::string movieTitle;
 
-    std::cout << "\n영화의 평점 목록을 출력합니다\n" << std::endl;
+    std::cout << "\n영화의 정보를 출력합니다\n" << std::endl;
     std::cout << "영화 제목 or ID: ";
     std::cin.ignore();
     std::getline(std::cin, movieTitle);
@@ -276,15 +278,21 @@ void searchMovie(MovieManager& movieManager){
     Movie* target = findMovie(movieManager, movieTitle);
     if(target == NULL)
         std::cout << "해당하는 영화를 찾지 못했습니다.\n" << std::endl;       
-    else
+    else{
+        std::cout << "--------------영화 정보--------------" << std::endl;
         target->display();
+        std::cout << "-------------------------------------\n" << std::endl;
+    }
+        
 
     std::cout << std::endl;
 }
 void showMovie(const MovieManager& movieManager){
-    std::cout << "\n영화 목록 출력\n\n\n" << std::endl;
+    std::cout << "\n영화 목록 출력\n\n" << std::endl;
+    std::cout << "순위      영화 제목 (개봉년도)                         장르         평점 평점수" << std::endl;
+    std::cout << "-------------------------------------------------------------------------------" << std::endl;
     movieManager.showAll();
-    std::cout << "\n\n\n\n" << std::endl;
+    std::cout << "-------------------------------------------------------------------------------\n" << std::endl;
 }
 
 void addUser(UserManager& userManager){
@@ -313,9 +321,11 @@ void addUser(UserManager& userManager){
     std::cout << std::endl;
 }
 void showUser(const UserManager& userManager){
-    std::cout << "\n전체 유저 목록 출력\n\n\n" << std::endl;
+    std::cout << "\n전체 유저 목록 출력\n\n" << std::endl;
+    std::cout << "UID  이름     Email" << std::endl;
+    std::cout << "---------------------------------------" << std::endl;
     userManager.showAll();
-    std::cout << "\n\n\n\n" << std::endl;
+    std::cout << "---------------------------------------\n" << std::endl;
 }
 
 void addRating(MovieManager& movieManager, UserManager& userManager, RatingManager& ratingManager){
@@ -362,7 +372,9 @@ void showRatings(MovieManager& movieManager, RatingManager& ratingManager){
     if(targetMovie == NULL)
         std::cout << "해당하는 영화를 찾지 못했습니다.\n" << std::endl;
     else{
+        std::cout << "--------------영화 정보--------------" << std::endl;
         targetMovie->display();
+        std::cout << "-------------------------------------" << std::endl;
         ratingManager.showByMovieId(targetMovie->getId());
     }  
     std::cout << "\n" << std::endl;
@@ -381,24 +393,30 @@ std::vector<std::pair<int, double>> userInquiry(User* target, Recommend& recomme
         return recommend.findSimilarUsers(target->getId(), N);
     }
 }
-void showSimilarUser(const std::vector<std::pair<int, double>>& similarUser, UserManager& userManager){
-    std::cout << "유사도가 높은 유저" << std::endl;
-    for(std::pair<int, double> i : similarUser)
-        std::cout << userManager.findById(i.first)->getName() << ": " << i.second << "점" << std::endl;  
+void showSimilarUser(double selfSimilarity, const std::vector<std::pair<int, double>>& similarUser, UserManager& userManager){
+    int i = 1;
+    std::cout << "\n---유사한 유저---" << std::endl;
+    for(std::pair<int, double> s : similarUser)
+        std::cout << std::to_string(i++) + ". " << userManager.findById(s.first)->getName() << ": " << 
+        std::fixed << std::setprecision(1) << (s.second / selfSimilarity) * 100<< "%" << std::endl;  
 }
 void recommendMovie(const std::vector<std::pair<int,double>>& resultMovie, MovieManager& movieManager){
     int M, i =0;
-    std::cout << "\n\n추천받을 영화의 수: ";
+    std::cout << "\n\n추천 영화 수: ";
     std::cin >> M;
     if(M > (int) resultMovie.size())
         std::cout << "추천 영화의 수가 적으므로 " << resultMovie.size() << "개 영화만 출력합니다" << std::endl;
-    std::cout << "\n추천 영화\n";
+    std::cout << "\n추천 영화\n\n";
+    std::cout << "순위      영화 제목 (개봉년도)                         장르         평점 평점수" << std::endl;
+    std::cout << "-------------------------------------------------------------------------------" << std::endl;
+
+    std::cout << std::left;
     for(const std::pair<int, double>& r : resultMovie){
         if(i++ >= M)
             break;
-        std::cout << *(movieManager.findById(r.first)) << "\t유사도: " << r.second << std::endl;
+        std::cout << std::setw(10) << std::to_string(i) + ". " << *(movieManager.findById(r.first)) << std::endl;
     }
-    std::cout << std::endl;
+    std::cout << "-------------------------------------------------------------------------------\n" << std::endl;
 }
 void showFiltered(const std::vector<std::pair<int,double>>& resultMovie, Recommend& recommend, MovieManager& movieManager){
     int M, i = 0;
@@ -411,12 +429,16 @@ void showFiltered(const std::vector<std::pair<int,double>>& resultMovie, Recomme
     std::vector<std::pair<int, double>> filtered = recommend.filterByGenre(resultMovie, genre);
     if(M > (int) filtered.size())
         std::cout << "추천 영화의 수가 적으므로 " << filtered.size() << "개 영화만 출력합니다" << std::endl;
-    std::cout << "\n추천 영화\n";
+    std::cout << "\n추천 영화\n\n";
+    std::cout << "순위      영화 제목 (개봉년도)                         장르         평점 평점수" << std::endl;
+    std::cout << "-------------------------------------------------------------------------------" << std::endl;
+
+    std::cout << std::left;
     for(const std::pair<int, double>& r : filtered){
         if(i++ >= M)
             break;
-        std::cout << *(movieManager.findById(r.first)) << "\t유사도: " << r.second <<std::endl;
+        std::cout << std::setw(10) << std::to_string(i) + ". " << *(movieManager.findById(r.first)) << std::endl;
     }
-    std::cout << std::endl;
+    std::cout << "-------------------------------------------------------------------------------\n" << std::endl;
 }
 

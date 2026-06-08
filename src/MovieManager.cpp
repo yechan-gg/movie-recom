@@ -54,8 +54,10 @@ void MovieManager::sortById(){
 
 //출력
 void MovieManager::showAll() const{
+    int i = 1;
+    std::cout << std::left; 
     for(const Movie& m : movies){
-        std::cout << m << std::endl;
+        std::cout << std::setw(10) << std::to_string(i++) + "." << m << std::endl;
     }
 }
     
@@ -115,7 +117,6 @@ void MovieManager::loadRating(const std::string& filename){
 
             std::getline(ss, token, ',');
             double score = std::stod(token);
-
             addRating(mId, score);
         }
         catch (const std::invalid_argument& e){

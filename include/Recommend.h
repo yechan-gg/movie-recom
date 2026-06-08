@@ -16,7 +16,12 @@ public:
     Recommend();
     Recommend(const std::vector<Movie>& movies, const std::vector<Rating>& ratings, const std::vector<int>& uIds);
 
+
     std::vector<Rating> findByUser(int userId);
+
+    double findSelfSimilarity(int target);
+    double findMaximumSimilarity(int target);
+
     double calculate(const std::vector<Rating>& user1, const std::vector<Rating>& user2);
     std::vector<std::pair<int, double>> findSimilarUsers(int target, int usersNum); 
     

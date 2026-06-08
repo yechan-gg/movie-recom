@@ -20,8 +20,8 @@ void User::display() const{
 
 //연산자 오버로딩
 std::ostream& operator<<(std::ostream& os, const User& u) {
-    os  << std::setfill(' ') << std::setw(3) << u.id << ". "
-        << "이름: " << std::setfill(' ') << std::setw(10) <<  u.name << " email: " << u.email;
+    os  << std::setw(5) << std::to_string(u.id) + ". "
+        << std::setw(12) <<  u.name << u.email;
     return os;
 }
 

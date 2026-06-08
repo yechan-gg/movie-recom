@@ -2,6 +2,13 @@
 #include <iostream>
 #include <iomanip>
 
+std::string slicingText(std::string target, int length){
+    if((int) target.length() > length){
+        return target.substr(0, length-3) + "...";
+    }
+    return target;
+}
+
 //생성자
 Movie::Movie()
     : id(0), releaseYear(0), totalRating(0.0), ratingCount(0) {}
@@ -36,6 +43,8 @@ void Movie::display() const {
               << std::endl;
 }
 
+
+
 //연산자 오버로딩
 bool Movie::operator==(const Movie& other) const{ return title == other.title && releaseYear == other.releaseYear; }
 bool Movie::operator!=(const Movie& other) const{ return !(*this == other); }
@@ -47,10 +56,10 @@ bool Movie::operator>(const Movie& other) const{ return other < *this; }
 bool Movie::operator<=(const Movie& other) const{ return !(other < *this); }
 bool Movie::operator>=(const Movie& other) const{ return  !(*this < other); }
 std::ostream& operator<<(std::ostream& os, const Movie& m) {
-    os  << std::setfill(' ') << std::setw(3) << m.id << ". " 
-        << std::setfill(' ') << std::setw(50) << m.title << " (" << m.releaseYear << ") " 
-        << std::setfill(' ') << std::setw(10) << m.genre 
-        << " 평점: "  << std::fixed << std::setprecision(1) << m.getAverageRating() 
-        << " 평점수: " << m.ratingCount;
+    os  << std::setw(45) << slicingText(m.title + " (" + std::to_string(m.releaseYear) + ") " , 40)
+        << std::setw(13) << m.genre
+        << std::setw(5) << std::fixed << std::setprecision(1) << m.getAverageRating() 
+        << std::setw(10) << m.ratingCount;
     return os;
 }
+

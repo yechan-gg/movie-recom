@@ -16,7 +16,17 @@ std::vector<Rating> Recommend::findByUser(int userId){
     }
     return ratingOfUser;
 }
-
+double Recommend::findSelfSimilarity(int target){
+    return (double) findByUser(target).size() * 10;
+}
+double Recommend::findMaximumSimilarity(int target){
+    double similarity = findSelfSimilarity(target);
+    double answer = 0;
+    for(const Rating& r : findByUser(target)){
+        answer += r.getScore() * similarity;
+    }
+    return answer;
+}
 //return 타입 double (score가 double 타입) 나머진 그대로 가져감
 double Recommend::calculate(const std::vector<Rating>& user1, const std::vector<Rating>& user2){
     int commonCount = 0;
