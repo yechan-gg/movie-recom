@@ -281,11 +281,8 @@ void searchMovie(MovieManager& movieManager){
     else{
         std::cout << "--------------영화 정보--------------" << std::endl;
         target->display();
-        std::cout << "-------------------------------------\n" << std::endl;
+        std::cout << "-------------------------------------" << std::endl;
     }
-        
-
-    std::cout << std::endl;
 }
 void showMovie(const MovieManager& movieManager){
     std::cout << "\n영화 목록 출력\n\n" << std::endl;
@@ -377,7 +374,6 @@ void showRatings(MovieManager& movieManager, RatingManager& ratingManager){
         std::cout << "-------------------------------------" << std::endl;
         ratingManager.showByMovieId(targetMovie->getId());
     }  
-    std::cout << "\n" << std::endl;
 }
 
 std::vector<std::pair<int, double>> userInquiry(User* target, Recommend& recommend, UserManager& userManager){
@@ -421,7 +417,7 @@ void recommendMovie(const std::vector<std::pair<int,double>>& resultMovie, Movie
 void showFiltered(const std::vector<std::pair<int,double>>& resultMovie, Recommend& recommend, MovieManager& movieManager){
     int M, i = 0;
     std::string genre;
-    std::cout << "\n\n추천받을 영화의 수: ";
+    std::cout << "\n\n추천 영화 수: ";
     std::cin >> M;
     std::cout << "장르: ";
     std::cin.ignore();
